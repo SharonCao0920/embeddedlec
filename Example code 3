@@ -1,0 +1,55 @@
+//3. Question #3: Sorting even & odd numbers (2)
+/*
+**********************************************************************
+* FILENAME :        fmcompres2.c             DESIGN REF: FMCM00
+*
+* DESCRIPTION :
+*       1. Read in 10 numbers from keyboard, and then sort them in ascending 
+	order 
+	2. Print them on the monitor, odd number in the first, then even 
+	   number  
+*
+* PUBLIC FUNCTIONS :
+*       int     FM_CompressFile( FileHandle )
+*       int     FM_DecompressFile( FileHandle )
+*
+* NOTES :
+*       These functions are a part of the FM suite;
+*       See IMS FM0121 for detailed description.
+*
+*       Copyright A.N.Other Co. 1990, 1995.  All rights reserved.
+* 
+* AUTHOR :    Arthur Other        START DATE :    16 Jan 99
+*
+* CHANGES :
+*
+* REF NO  VERSION DATE    WHO     DETAIL
+* F21/33  A.03.04 22Jan99 JR      Function CalcHuffman corrected
+*
+***********************************************************************
+*/
+#include <iostream>
+    using namespace std;
+    
+    int main() {
+      int a[10];
+      for (int i = 0; i < 10; i++) {
+        cin >> a[i];
+      }  
+      // Bubble sorting by comparing two two sequential numbers
+      for (int i = 0; i < 9; i++) {
+        for (int j = 1; j < 10 - i; j++) {      
+      	  bool leftIsEven = a[j - 1] % 2 == 0;
+          bool rightIsEven = a[j] % 2 == 0;
+         if ((leftIsEven && !rightIsEven) ||
+            (leftIsEven == rightIsEven && a[j - 1] > a[j])) {        
+           int temp = a[j];        
+           a[j] = a[j - 1];
+           a[j - 1] = temp;
+      }
+    }
+for (int i = 0; i < 10; i++) {
+    cout << a[i] << ' ';
+  }  
+  return 0;
+}

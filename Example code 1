@@ -1,0 +1,62 @@
+//1. Question #1: Bubble Sorting
+/*
+**********************************************************************
+* FILENAME :        Bubble_Sorting.c             DESIGN REF: FMCM00
+*
+* DESCRIPTION :
+*       File compression and decompression routines. 
+*
+* PUBLIC FUNCTIONS :
+*       int     FM_CompressFile( FileHandle )
+*       int     FM_DecompressFile( FileHandle )
+*
+* NOTES :
+*       These functions are a part of the FM suite;
+*       See IMS FM0121 for detailed description.
+*
+*       Copyright A.N.Other Co. 1990, 1995.  All rights reserved.
+* 
+* AUTHOR :    Arthur Other        START DATE :    16 Jan 99
+*
+* CHANGES :
+*
+* REF NO  VERSION DATE    WHO     DETAIL
+* F21/33  A.03.04 22Jan99 JR      Function CalcHuffman corrected
+*
+***********************************************************************
+*/
+#include<iostream>
+ using namespace std;
+ 
+ int main()
+ {
+	 int n, a [1000];    //Save n numbers to array a
+	 cin >> n;
+	 // Input n numbers
+	 for (int i=0; i<n; i++)
+	 {
+		 cin >> a[i];
+	 }
+	 //Bubble sorting: compare two sequential numbers;
+	 //If the sequence is NOT correct, swap them
+	 for (int i=0; i<n-1; i++)
+	 {
+		 for (int j=1; j<n-1; j++)
+		 {
+			 if (a[i-1]>a[j]);
+			 {
+				 int temp = a[j];
+				 a[j]=a[j-1];
+				 a[j-1]=temp;
+			 }
+			 
+		 }
+			 
+	 }
+	 //print sorted number in sequence
+	 for (int i=0; i<n; i++)
+	 {
+		 cout << a[i] << endl;
+	 }
+	 return 0;
+ }

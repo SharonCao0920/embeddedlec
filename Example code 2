@@ -1,0 +1,80 @@
+//2. Question #2: Sorting even & odd numbers (1)
+/*
+**********************************************************************
+* FILENAME :        fmcompres1.c             DESIGN REF: FMCM00
+*
+* DESCRIPTION :
+*       1. Read in 10 numbers from keyboard, and then sort them in ascending 
+	order 
+	2. Print them on the monitor, odd number in the first, then even 
+	   number  
+*
+* PUBLIC FUNCTIONS :
+*       int     FM_CompressFile( FileHandle )
+*       int     FM_DecompressFile( FileHandle )
+*
+* NOTES :
+*       These functions are a part of the FM suite;
+*       See IMS FM0121 for detailed description.
+*
+*       Copyright A.N.Other Co. 1990, 1995.  All rights reserved.
+* 
+* AUTHOR :    Arthur Other        START DATE :    16 Jan 99
+*
+* CHANGES :
+*
+* REF NO  VERSION DATE    WHO     DETAIL
+* F21/33  A.03.04 22Jan99 JR      Function CalcHuffman corrected
+*
+***********************************************************************
+*/
+#include <iostream>
+    using namespace std;
+    
+    int main() {
+      int a[10];
+      for (int i = 0; i < 10; i++) {
+        cin >> a[i];
+      }
+      // Put odd number in the array first, and then even number
+      int l = 0, r = 9; //left & right variables point to the two ends of array
+      while (l <= r) {
+        bool leftIsOdd = a[l] % 2 == 1;
+        bool rightIsEven = a[r] % 2 == 0;
+        if (leftIsOdd) {
+          l++;
+        } else if (rightIsEven) {
+          r--;
+        } else if (!leftIsOdd && !rightIsEven) {
+          int temp = a[l];
+          a[l] = a[r];
+          a[r] = temp;
+        }
+      }
+// Sort odd number section by bubble method
+      int start = 0, end = l;
+      for (int i = start; i < end - 1; i++) {
+        for (int j = start + 1; j < start + end - i; j++) {
+          if (a[j - 1] > a[j]) {
+            int temp = a[j];
+            a[j] = a[j - 1];
+            a[j - 1] = temp;
+          }
+        }
+      }
+      // Sort even number section by bubble method
+      start = l, end = 10;
+      for (int i = start; i < end - 1; i++) {
+        for (int j = start + 1; j < start + end - i; j++) {
+          if (a[j - 1] > a[j]) {
+            int temp = a[j];
+            a[j] = a[j - 1];
+            a[j - 1] = temp;
+          }
+        }
+      }
+      for (int i = 0; i < 10; i++) {
+        cout << a[i] << ' ';
+      }
+      return 0;
+}
