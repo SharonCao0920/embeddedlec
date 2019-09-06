@@ -1,0 +1,45 @@
+/*
+* FILENAME :       09052019P3          
+*
+* DESCRIPTION :
+*    Write program to find the simple interest
+*    Output:
+*    enter principle, rate of interest & time to find simple interest: 500 5 2
+*    simple interest=50
+*    [hint] 𝑠𝑖𝑚𝑝𝑙𝑒 𝑖𝑛𝑡𝑒𝑟𝑒𝑠𝑡 =(𝑝𝑟𝑖𝑛𝑐𝑖𝑝𝑙𝑒)∗(𝑟𝑎𝑡𝑒 𝑜𝑓 𝑖𝑛𝑡𝑒𝑟𝑒𝑠𝑡)∗(𝑡𝑖𝑚𝑒)/100
+*
+* AUTHOR :    Sharon Cao         DATE :  09/05/2019
+*
+*/
+
+#include <stdio.h>
+
+int main ()
+{   //delear variables
+	int _prin, _rate, _time, _interest;
+	
+	
+	//print instructions
+	printf ("Enter principle, rate of interest & time to find simple interest:\n");
+	
+	//read intpus
+	scanf ("%d%d%d", &_prin, &_rate, &_time);
+	
+	//calculate interest 
+	_interest = _prin *((float) _rate/100)* _time;
+	
+	//print outputs
+	printf ("Simple interest = %d\n", _interest);
+	
+	return 0;
+}
+
+/*
+result:
+
+Enter principle, rate of interest & time to find simple interest:                                                                                    
+500                                                                                                                                                  
+5                                                                                                                                                    
+2                                                                                                                                                    
+Simple interest = 50     
+/
