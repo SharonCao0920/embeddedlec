@@ -1,0 +1,44 @@
+/*
+* FILENAME :       09052019P2          
+*
+* DESCRIPTION :
+*      Write program to find area and circumference of circle
+*      Output:
+*      enter radius of a circle: 5
+*      area of circle=78.000
+*      circumference=31.4
+*
+* AUTHOR :    Sharon Cao         DATE :  09/05/2019
+*
+*/
+
+#include <stdio.h>
+
+int main ()
+{   //delear variables
+	float rad, areaR, cirR; 
+	float pie = 3.14;
+	
+	//print instruction
+	printf ("Enter radius of a circle:");
+	
+	//read input
+	scanf ("%f", &rad);
+	
+	//calculate
+	areaR = pie * rad * rad;
+	cirR = 2 * pie * rad;
+	
+	//print outputs
+	printf ("Area of circle = %f\n", areaR);
+	printf ("Cirsumference = %f" , cirR);
+	
+	return 0;
+}
+
+/*
+result:
+Enter radius of a circle:5                                                                                                                           
+Area of circle = 78.500000                                                                                                                           
+Cirsumference = 31.400002                                                                                                                            
+*/                           
