@@ -1,0 +1,42 @@
+/*
+* FILENAME :       09052019P4         
+*
+* DESCRIPTION :
+*    Write program to convert temperature from degree centigrade to Fahrenheit
+*    Output:
+*    enter temp in centigrade: 32
+*    temp in Fahrenheit=89.59998
+*    [hint] 𝐹𝑎ℎ𝑟𝑒𝑛ℎ𝑒𝑖𝑡 = 1.8∗ 𝑐𝑒𝑛𝑡𝑖𝑔𝑟𝑎𝑑𝑒 + 32
+*
+* AUTHOR :    Sharon Cao         DATE :  09/05/2019
+*
+*/
+
+
+#include <stdio.h>
+
+int main ()
+{   //delear variables
+	float temp_f, temp_c;
+	
+	//print instructions
+	printf ("enter temp in centigrade:\n");
+	
+	//read intpus
+	scanf ("%f", &temp_c);
+	
+	//calculate interest 
+	temp_f = (1.8 *temp_c)+32;
+	
+	//print outputs
+	printf ("temp in Fahrenheit= %f", temp_f);
+	
+	return 0;
+}
+
+/*
+result:
+enter temp in centigrade:                                                                                                                            
+32                                                                                                                                                   
+temp in Fahrenheit= 89.599998  
+/
