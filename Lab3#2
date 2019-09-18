@@ -1,0 +1,36 @@
+/*
+2. Reverse a given number and print it on the monitor
+Output:
+enter any no to get its reverse: 456
+reverse=654
+*/
+
+#include <stdio.h>
+int main()
+{
+	int num, foo=0, rem=1;
+	
+	printf("Enter any number to get its reverse: ");
+	scanf("%d", &num);
+	printf ("reverse=");
+	
+	do
+	{
+	   foo = num / 10;
+	   rem = num % 10	;
+	   num = foo ;
+     if (rem == 0)
+     {
+       break;
+     }
+	   printf ("%d",rem);
+	}
+	while (rem!=0);
+
+	return 0;
+}
+
+/*result
+Enter any number to get its reverse: 45678
+reverse=87654
+*/

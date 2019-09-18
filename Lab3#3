@@ -1,0 +1,29 @@
+/*3. Find greatest in 3 numbers from keyboard input
+Output:
+enter value for a, b& c: 5 7 4
+b is greatest
+*/
+
+#include <stdio.h>
+int main()
+{
+	int a, b, c, greatest;
+	
+	printf("enter value for a, b& c: ");
+	scanf("%d%d%d", &a, &b, &c);
+	
+	if ( a >b && a>c  )
+		greatest = a; 
+	    else if (b>a && b>c)
+		     greatest =b; 
+	         else 
+				 greatest = c;
+	printf ("%d is greatest", greatest);
+
+	return 0;
+}
+
+/* result
+enter value for a, b& c: 6 4 1
+6 is greatest
+*/
