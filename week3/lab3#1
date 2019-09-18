@@ -1,0 +1,33 @@
+/*
+Filename: C Language W3
+
+Description:
+1. Swap two numbers without using third variable avoiding overflow issue
+
+AUTHOR :    Sharon Cao         DATE :  09/17/2019
+
+*/
+#include <stdio.h>
+int main()
+{
+	int a, b;
+	
+	printf("Enter two numbers: ");
+	
+	scanf ("%d%d", &a, &b);
+	
+	printf ("a is %d, b is %d\n", a, b);
+	
+    a = a ^ b;
+    b = b ^ a;
+    a = a ^ b;
+	
+	printf ("After swap, a is %d, b is %d", a, b);
+	
+	return 0;
+}
+/* result
+Enter two numbers: 56 78
+a is 56, b is 78
+After swap, a is 78, b is 56
+*/

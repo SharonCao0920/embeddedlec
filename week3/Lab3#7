@@ -1,0 +1,81 @@
+/*
+Filename: C Language W3
+
+Description:
+7. Use switch statement to display Monday to Sunday
+Output:
+enter m for Monday
+t for Tuesday
+w for Wednesday
+h for Thursday
+f for Friday
+s for Saturday
+u for Sunday: f
+Friday
+Notice that “f” is your input from keyboard
+
+AUTHOR :    Sharon Cao         DATE :  09/17/2019
+
+*/
+
+#include <stdio.h>
+
+int main ()
+{
+	char day;
+	
+	printf ("enter:\n m for Monday\n t for Tuesday\n w for Wednesday\n h for Thursday\n");
+	printf (" f for Friday\n s for Saturday \n u for Sunday\n");
+	
+	printf ("Please enter: ");
+	scanf ("%c", &day);
+	
+	switch (day)
+	{
+	   case 'm' : 
+	   printf ("Monday");
+	   break;
+	
+	   case 't':
+	   printf ("Tuesday");
+	   break;
+	
+	   case 'w':
+	   printf ("Wednesday");
+	   break;
+	
+	   case 'h':
+	   printf ("Thursday");
+	   break;
+	
+	   case 'f':
+	   printf ("Friday");
+	   break;
+	
+	   case 's':
+	   printf ("Saturday");
+	   break;
+	
+	   case 'u':
+	   printf ("Sunday");
+	   break;
+	
+	   default : 
+	   printf ("Please enter valid input!\n");
+	}  
+	
+	return 0;
+}
+
+/* result
+enter:
+ m for Monday
+ t for Tuesday
+ w for Wednesday
+ h for Thursday
+ f for Friday
+ s for Saturday
+ u for Sunday
+Please enter: s
+Saturday
+*/
