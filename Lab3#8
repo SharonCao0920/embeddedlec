@@ -1,4 +1,7 @@
 /*
+Filename: C Language W3
+
+Description:
 8. Display arithmetic operator using switch case.
 Output:
 enter two numbers: 8 4
@@ -8,6 +11,9 @@ enter 1 for sum
 4 for division: 1
 sum=12
 Notice that “1” is your input from keyboard
+
+AUTHOR :    Sharon Cao         DATE :  09/17/2019
+
 */
 
 #include <stdio.h>
