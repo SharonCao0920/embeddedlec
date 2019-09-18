@@ -1,8 +1,13 @@
 /*
+Filename: C Language W3
+
+Description:
 2. Reverse a given number and print it on the monitor
 Output:
 enter any no to get its reverse: 456
 reverse=654
+
+AUTHOR :    Sharon Cao         DATE :  09/17/2019
 */
 
 #include <stdio.h>

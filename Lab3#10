@@ -1,6 +1,12 @@
 
 /*
+Filename: C Language W3
+
+Description:
 10.Print stars as following sequence on the monitor by loops
+
+AUTHOR :    Sharon Cao         DATE :  09/17/2019 
+
 */
 
 #include<stdio.h>

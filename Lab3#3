@@ -1,7 +1,14 @@
-/*3. Find greatest in 3 numbers from keyboard input
+/*
+Filename: C Language W3
+
+Description:
+3. Find greatest in 3 numbers from keyboard input
 Output:
 enter value for a, b& c: 5 7 4
 b is greatest
+
+AUTHOR :    Sharon Cao         DATE :  09/17/2019
+
 */
 
 #include <stdio.h>
