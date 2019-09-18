@@ -1,10 +1,16 @@
 /*
+Filename: C Language W3
+
+Description:
 9. Input a number, such as n from keyboard and display their sum from 1 to n
 by using loops 
 Output:
 enter a number: 10
 sum = 55
 notice that 55 = 1+2+3+4+5+6+7+8+9+10
+
+AUTHOR :    Sharon Cao         DATE :  09/17/2019
+
 */
 
 #include <stdio.h>

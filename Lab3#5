@@ -1,5 +1,11 @@
 /*
+Filename: C Language W3
+
+Description:
 5. Find whether given number is even or odd from keyboard input
+
+AUTHOR :    Sharon Cao         DATE :  09/17/2019
+
 */
 
 #include <stdio.h>

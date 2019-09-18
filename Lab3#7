@@ -1,4 +1,8 @@
-/*7. Use switch statement to display Monday to Sunday
+/*
+Filename: C Language W3
+
+Description:
+7. Use switch statement to display Monday to Sunday
 Output:
 enter m for Monday
 t for Tuesday
@@ -9,6 +13,9 @@ s for Saturday
 u for Sunday: f
 Friday
 Notice that “f” is your input from keyboard
+
+AUTHOR :    Sharon Cao         DATE :  09/17/2019
+
 */
 
 #include <stdio.h>

@@ -1,7 +1,14 @@
-/*6. Shift input data by three bits to the left
+/*
+Filename: C Language W3
+
+Description:
+6. Shift input data by three bits to the left
 Output:
 Read the integer from keyboard: 2
 The left shifted data is = 16
+
+AUTHOR :    Sharon Cao         DATE :  09/17/2019
+
 */
 
 #include <stdio.h>
