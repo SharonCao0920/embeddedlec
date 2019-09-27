@@ -15,11 +15,11 @@ int main()
 {
 	int i,j;
     int max;
-	int space= max -1;
+	int space;
 	
     printf ("Enter an integer: ");
     scanf ("%d", &max);
-
+    space = max-1;
 	for(i=0;i< max;i++)
 	{
 		for(j=0;j< space;j++)
@@ -54,21 +54,19 @@ int main()
 	}
     return 0;
 }
-
-/* result
-Enter an integer: 7
-      *
-     * *
-    * * *
-   * * * *
-  * * * * *
- * * * * * *
-* * * * * * *
-* * * * * * *
- * * * * * *
-  * * * * *
-   * * * *
-    * * *
-     * *
-      *
+/*
+clang version 7.0.0-3~ubuntu0.18.04.1 (tags/RELEASE_700/final)
+ clang-7 -pthread -lm -o main main.c
+ ./main
+Enter an integer: 5
+    *
+   * *
+  * * *
+ * * * *
+* * * * *
+* * * * *
+ * * * *
+  * * *
+   * *
+    *
 */
