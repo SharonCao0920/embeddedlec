@@ -1,0 +1,78 @@
+/*
+Author: Sharon Cao      Date: 9/30/2019
+
+Description:
+9. Generate a program for finding the desired kth smallest element in an array 
+ 
+Output: Enter size of the array:7 
+Enter numbers for each element: 3  3  4  6  4  3  7 
+Enter desired kth smallest element: 3 
+ 
+Result of 3rd smallest element: 6 
+ */
+ 
+#include <stdio.h>
+ 
+ void sortarray ();
+ 
+ int main ()
+ {
+	 int size, a[100];
+	 int num;
+	 
+	 printf ("Enter size of the array: ");
+	 scanf("%d", &size);
+	 
+	 printf("Enter numbers for each element: ");
+	 for (int i=0; i<size; i++)
+	 {
+		 scanf("%d", &a[i]);
+	 }
+	 
+	 sortarray ( a, size);
+	 
+	 printf ("Enter desired kth smallest element: ");
+	 scanf ("%d", &num);
+	 
+	 printf ("Result of %d smallest element: ",num);
+	 
+   for (int i=0; i<size; i++)
+	 {
+		 if (i==num-1)
+		 {
+			 printf ("%d", a [i]);
+		 }
+	 }
+	 
+	 return 0;
+ }
+ 
+ void sortarray (int a[], int size)
+ {
+	 for (int i=1; i<size; i++)
+	 {
+		 for (int j=0; j<size-i; j++)
+		 {
+			int temp;
+			if (a[j]>a[j+1])
+			{
+				temp = a[j];
+				a[j] = a[j+1];
+				a[j+1] = temp;
+			}		 
+		 }
+	 }
+   /*
+   for (int i=0; i<size; i++)
+   {
+     printf ("%d", a[i]);
+   }
+   */
+ }
+
+/* Sample
+Enter size of the array: 9                                                                                                                           
+Enter numbers for each element: 5 8 7 1 9 3 6 4 8                                                                                                    
+Enter desired kth smallest element: 5                                                                                                                
+Result of 5 smallest element: 6  
+*/

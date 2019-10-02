@@ -1,0 +1,81 @@
+ 
+/*
+Author: Sharon Cao      Date: 9/30/2019
+
+Description:
+8. Write a program to remove the duplicate element in an array 
+ 
+Output: 
+Enter size of the array:5 
+Enter numbers for each element: 3  3  4  6  4 
+Results of removing duplicate: 3  4  6 
+ 
+Hint: sort the array first, and then shift array if there is a duplicate element 
+*/
+#include <stdio.h>
+ 
+ void sortarray ();
+ 
+ int main ()
+ {   
+     //declaration 
+	 int size, a[100];
+	 
+	 //instructions and read inputs from keyboard
+	 printf ("Enter size of the array: ");
+	 scanf("%d", &size);
+	 
+	 //read and save inputs into array
+	 printf("Enter numbers for each element: ");
+	 for (int i=0; i<size; i++)
+	 {
+		 scanf("%d", &a[i]);
+	 }
+
+    //sorting
+	sortarray ( a, size);
+    
+    //print the remaining after removing duplicate
+    printf ("Results of removing duplicate: ");
+    
+    //loop to remove duplicate
+	 for (int i=0; i<size; i++)
+  {
+	  if (a[i]<a[i+1])
+	  {
+		  printf ("%d ", a[i]);
+	  }
+  }
+	 
+	 return 0;
+ }
+ 
+ //function to sort array
+ void sortarray (int a[], int size)
+ {
+	 for (int i=1; i<size; i++)
+	 {
+		 for (int j=0; j<size-i; j++)
+		 {
+			int temp;
+			if (a[j]>a[j+1])
+			{
+				temp = a[j];
+				a[j] = a[j+1];
+				a[j+1] = temp;
+			}		 
+		 }
+	 }
+   /*
+   for (int i=0; i<size; i++)
+   {
+     printf ("%d", a[i]);
+   }
+   */
+ } 
+
+/*Sample
+Enter size of the array: 11                                                                                                                          
+Enter numbers for each element: 1 5 6 2 2 3 8 4 3 4 2                                                                                                
+Results of removing duplicate: 1 2 3 4 5 6 8  
+*/
