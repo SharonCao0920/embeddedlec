@@ -1,0 +1,102 @@
+/*
+Filename: C Language W4
+
+AUTHOR :    Sharon Cao         DATE :  09/26/2019
+
+Description:
+1. Find whether given number is a prime number or not.
+Output:
+enter any number : 7
+prime number?: Yes
+Output:
+enter any number: 4
+prime number?: No
+*/
+ #include <stdio.h>
+ 
+ int main ()
+ {
+    //declear variables
+	int num, a=0;
+	
+	//print instructions
+	printf ("Please enter any number: \n");
+	scanf ("%d", &num);
+	printf ("prime number?: \n");
+	
+	//loop to check
+	for (int i =2; i < num; i++)
+	{
+		if (num%i==0)
+		{
+			a++;
+		}
+	}
+	
+	//result printing
+	if (a==0)
+	{
+		printf("Yes");
+	}
+	else
+	{
+        printf ("No");
+	}
+	
+	return 0;
+	
+ }
+
+/*result
+Please enter any number:
+17
+prime number?:
+Yes
+
+Please enter any number:
+685
+prime number?:
+No
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2. Display "Hi You did good job" from the right to shift in.
+3. Display from 0000 to 9999 after certain time delay to increase one, such as "0000 ->
+0001-> 0002-> ... ...->9999" on four 7-segment LEDs.

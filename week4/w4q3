@@ -1,0 +1,43 @@
+/*
+Filename: C Language W4
+
+AUTHOR :    Sharon Cao         DATE :  09/26/2019
+
+Description:
+3. Print Fibonacci series for given number form keyboard input
+Output:
+Read the integers from keyboard: 7
+Fibonacci series: 0, 1, 1, 2, 3, 5, 8, 13
+*/
+
+#include <stdio.h>
+ 
+ int main ()
+ {   
+     //declaration and instructions
+	 int num, a=0, b=1, c;
+	 printf ("Read the integers from keyboard: ");
+	 scanf ("%d", &num);
+	 printf ("Fibonacci series: 0, 1");
+	 
+	 //calculate
+    for (int i=1; i<num; i++)
+	{
+		c = a + b;
+		printf (", %d", c);
+		
+		a=b;
+		b=c;
+	}
+	 
+	 return 0;
+	  
+ }
+
+/*Result
+Read the integers from keyboard: 7
+Fibonacci series: 0, 1, 1, 2, 3, 5, 8, 13
+
+Read the integers from keyboard: 11
+Fibonacci series: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89
+*/

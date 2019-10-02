@@ -1,0 +1,50 @@
+/*
+Filename: C Language W4
+
+AUTHOR :    Sharon Cao         DATE :  09/26/2019
+
+Description:
+7. Find average value in an array, which length of array is from the keyboard
+and each element in array from keyboard as well.
+Output:
+Enter length of array: 5
+Enter each elem in array: 11 12 13 14 15
+Average value in array: 13
+*/
+
+#include <stdio.h>
+ 
+ int main ()
+ {   
+    //declaration and instructions
+	int size;
+	int a [size];
+	int sum = 0;
+	
+	//read and stroe array a input
+	printf("Enter length of array:\n");
+	scanf ("%d", &size);
+	
+	printf ("enter elements for a array:\n");
+	for (int i=0; i < size; i++)
+	{ 
+      scanf("%d", &a[i]);
+	  sum += a[i];
+	}
+	
+	float average;
+	average = (float)sum / size;
+	
+	printf("Average value in array: %f", average);
+   
+	return 0;
+	  
+ }
+ 
+ /*Result
+ Enter length of array:
+6
+enter elements for a array:
+13 14 15 16 17 18
+Average value in array: 15.500000
+*/

@@ -1,0 +1,43 @@
+/*
+Filename: C Language W4
+
+AUTHOR :    Sharon Cao         DATE :  09/26/2019
+
+Description:
+4. Display sum of series 1+1/2+1/3+……….+1/n, which n’s value is from
+keyboard
+Output:
+Read the integers from keyboard: 10
+Sum of reciprocal of n: (1+1/2+1/3+……….+1/10)’s value
+*/
+
+#include <stdio.h>
+ 
+ int main ()
+ {   
+    //declaration and instructions
+	int num;
+	float total=0.0;
+	printf ("Read the integers from keyboard: ");
+	scanf ("%d", &num);
+	printf ("Sum of reciprocal of n:\ntotal = 0 ");
+	 
+	//calculate
+	int i;
+    for ( i=1; i<=num; i++)
+	{
+	  total += (float)1/i;
+	  printf (" + 1/%d ", i);
+	}
+	
+  printf (" = %f", total);
+
+	return 0;
+	  
+ }
+ 
+ /*Result
+Read the integers from keyboard: 10
+Sum of reciprocal of n:
+total = 0  + 1/1  + 1/2  + 1/3  + 1/4  + 1/5  + 1/6  + 1/7  + 1/8+ 1/9  + 1/10  = 2.928968
+*/

@@ -1,0 +1,36 @@
+/*
+Filename: C Language W4
+
+AUTHOR :    Sharon Cao         DATE :  09/26/2019
+
+Description:
+2. Program to use bitwise AND operator between the two integers.
+Output:
+Read the integers from keyboard: 8 4
+The Answer after ANDing is: 0
+*/
+
+#include <stdio.h>
+ 
+ int main ()
+ {   
+     //declaration and instructions
+	 int a, b, c;
+	 printf ("Read the integers from keyboard: ");
+	 scanf ("%d%d", &a,&b);
+	 
+	 //calculate
+     c = a & b 
+	 
+	 //print result
+	 printf ("The answer after ANDING is: %d", c);
+	 
+	 return 0;
+	  
+ }
+
+/* result
+Read the integers from keyboard: 8
+4
+The answer after ANDING is: 0
+*/

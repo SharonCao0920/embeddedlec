@@ -1,0 +1,55 @@
+/*
+Filename: C Language W4
+
+AUTHOR :    Sharon Cao         DATE :  09/26/2019
+
+Description:
+5. Find the maximum number in a given size of array for each element keyed
+in from standard input device, assuming that 5-length of array is to save
+input values from keyboard
+Output:
+enter elements for array: 5 4 7 1 2
+maximum number = 7
+*/
+
+#include <stdio.h>
+ 
+ int maxNum ();
+ 
+ int main ()
+ {   
+    //declaration and instructions
+	int a[5];
+	printf ("enter elements for array: ");
+	
+	//read and stroe array input
+	for (int i=0; i < 5; i++)
+	{
+	  scanf ("%d", &a[i]);
+	}
+    
+	//call function and print result
+	printf ("maximum number = %d ", maxNum(a));
+	 
+	return 0;
+	  
+ }
+
+//function to find max number
+ int maxNum (int a[])
+{
+  int max=a[0];
+  for (int i=1; i<5; i++)
+  {
+    if (a[i]>max)
+    {
+      max = a[i];
+    }
+  }
+  return max;
+}
+
+/*result
+enter elements for array: 12 67 4 90 3
+maximum number = 90
+*/

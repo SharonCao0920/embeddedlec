@@ -1,0 +1,39 @@
+/*
+Filename: C Language W4
+
+AUTHOR :    Sharon Cao         DATE :  09/26/2019
+
+Description:
+10.Find factorial of a number using functions.
+Output:
+enter a number: 5
+factorial=120
+*/
+ #include <stdio.h>
+ 
+ int facResult ();
+ 
+ int main ()
+ {   
+    int num; 
+	printf ("Enter a number: ");
+	scanf ("%d", &num);
+	
+	printf ("factorial = %d", facResult(num));
+	
+	return 0;	  
+ }
+
+ int facResult (int num)
+ {   
+     int result=1;
+	 for (int i=1; i<=num; i++)
+	 {
+		 result *= i;
+	 }
+	 return result;
+ }
+/*Result
+Enter a number: 6
+factorial = 720
+*/
