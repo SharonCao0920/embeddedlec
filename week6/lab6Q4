@@ -1,0 +1,50 @@
+/*
+Author: Sharon Cao           Date: 10/8/2019
+
+Describtion:
+4. Write a program in C to print a string in reverse using a pointer.
+Output:
+nput a string : pointers
+Reverse of the string is : sretniop
+*/
+
+#include <stdio.h>
+
+int main()
+{
+    char str[1000];
+    char rev[1000];
+    char *sptr = str; 
+    char *rptr = rev; 
+
+    int i = -1;
+
+    printf("Enter a string: ");
+    scanf("%s", str);
+
+    while(*sptr)
+    {
+        sptr++;
+        i++; 
+    }
+
+    while(i >= 0)
+    {
+        sptr--; 
+        *rptr = *sptr;  
+        rptr++; 
+        i--;    
+    }
+
+    *rptr = '\0'; 
+    rptr = rev; 
+
+    printf("\nReverse of the string is: %s ", rev);
+
+    return 0;
+}
+/*Sample
+Enter a string: wonderful
+
+Reverse of the string is: lufrednow
+*/

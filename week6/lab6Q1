@@ -1,0 +1,56 @@
+/*
+Author: Sharon Cao           Date: 10/8/2019
+
+Describtion:
+1. Write program to call two functions as follows to get bigger numbers from 2
+input arguments and 3 input arguments
+int *biggest_of_two(int*, int*);
+int *biggest_of_three(int*, int*, int*);
+*/
+#include <stdio.h>
+
+int *biggest_of_two(int*, int*);
+
+int *biggest_of_three(int*, int*, int*);
+
+int main ()
+{
+	int x, y;
+	printf ("Enter two arguments: ");
+	scanf ("%d %d", &x, &y);
+	
+	printf ("The biggest between the two arguments is %d.\n", *biggest_of_two (&x, &y));
+	
+	int a, b, c;
+	printf ("Enter three arguments: ");
+	scanf ("%d %d %d", &a, &b, &c);
+	
+	printf ("The biggest between the three arguments is %d.", *biggest_of_three (&a, &b, &c));
+	
+	return 0;
+}
+
+int *biggest_of_two(int* x, int* y)
+{
+	if (*x<*y)
+	  return y;
+	else
+      return x;
+}
+
+int *biggest_of_three(int* a, int* b, int* c)
+{
+  if (*a>*b && *a>*c)
+    return a;
+  if (*b>*a && *b>*c)
+    return b;
+  if (*c>*b && *c>*a)
+    return c;
+}
+
+/* Sample
+Enter two arguments: 45 78
+The biggest between the two arguments is 78.
+Enter three arguments: 56 12 89
+The biggest between the three arguments is 89.
+*/

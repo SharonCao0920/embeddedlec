@@ -1,0 +1,46 @@
+/*
+Author: Sharon Cao           Date: 10/8/2019
+
+Describtion:
+6. Write a program to read a sentence & delete all the white spaces. Replace all
+“.” by “:”.
+*/
+
+#include <stdio.h>
+ 
+int main()
+{
+   char str[1000], blank[100];
+   int c = 0, d = 0;
+ 
+   printf("Enter a string: \n");
+   fgets(str, sizeof str, stdin);
+ 
+   while (str[c] != '\0')
+   {
+      if (!(str[c] == ' ' )) 
+      {
+        if (str[c] == '.')
+        {
+          str[c] = ':';
+        } 
+        blank[d] = str[c];
+        d++;
+      }
+      
+      c++;
+   }
+ 
+   blank[d] = '\0';
+ 
+   printf("Text after deleting all the white spaces and after replacements:\n%s", blank);
+ 
+   return 0;
+}
+
+/* Sample
+Enter a string:
+what to do to have a wonderful day.
+Text after deleting all the white spaces and after replacements:
+whattodotohaveawonderfulday:
+*/

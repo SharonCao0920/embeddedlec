@@ -1,0 +1,39 @@
+/*
+Author: Sharon Cao           Date: 10/8/2019
+
+Describtion:
+8. Write a program in C to find the factorial of a given number using pointers.
+Output:
+ Input a number: 5
+
+ 5’s factorial: 120
+*/
+#include <stdio.h>
+
+void calculateFact(int,int*);
+
+int main()
+{
+  int facresult;
+  int num1;
+	printf("Input a number : ");
+	scanf("%d",&num1);		 
+  
+  //call faction to find factorial
+  calculateFact(num1,&facresult);
+  printf("%d's factorial is: %d \n\n",num1,facresult);
+  return 0;
+}
+
+void calculateFact(int n,int *f)
+	{
+      int i;
+      *f =1;
+      for(i=1;i<=n;i++)
+      *f=*f*i;
+    }
+
+/*Sample
+Input a number : 7
+7's factorial is: 5040
+*/

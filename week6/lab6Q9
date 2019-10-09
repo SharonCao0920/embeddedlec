@@ -1,0 +1,52 @@
+/*
+Author: Sharon Cao           Date: 10/8/2019
+
+Describtion:
+9. How to return multiple values from function in C programming
+Hint: return array to a function
+*/
+#include <stdio.h>
+
+//declear prototype
+int* getNOddNumbers(int, int *);
+
+//main function
+int main()
+{
+    int i, num;
+     
+    printf("Enter size of array wanted: ");
+    scanf("%d", &num);
+    
+    int array[num];
+
+    //call functino to get array
+    getNOddNumbers(num, array);
+    
+    //print the result
+    printf("%d Even Numbers are:\n", num);
+    for(i = 0; i < num; i++)
+    {
+      printf("%d ", array[i]);
+    }
+        
+    return 0;
+}
+
+//function to get array
+int* getNOddNumbers(int num, int *array)
+{
+    int i;
+  
+    for(i = 0; i < num; i++)
+    {
+      array[i] = 2*i+1;
+    }
+    return array;
+}
+
+/*Sample
+Enter size of array wanted: 13
+13 Even Numbers are:
+1 3 5 7 9 11 13 15 17 19 21 23 25
+*/

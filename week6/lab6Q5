@@ -1,0 +1,72 @@
+/*
+Author: Sharon Cao           Date: 10/8/2019
+
+Describtion:
+5. Write a program to read a sentence and count the number of characters
+&words in that sentence.
+Output:
+Enter a sentence: we are learning C language
+Total number of words: 5
+Number of characters for each: 2 3 8 1 8
+*/
+
+#include <stdio.h>
+
+int main()
+{
+	char str[1000];
+	int ctr1=0, ctr2=0;
+	
+	//read and save the string entered
+    printf("Enter a string: ");
+    fgets (str, sizeof str, stdin);
+    
+    
+    //find the sizze of string entered
+    int size=0;
+    for (int i=0; str[i]!='\0'; i++)
+    {
+        size += 1;
+    }
+    
+    //declear an integer array to sace the size of each word
+    int a[100];
+
+    //count spaces to get number of words and count the length of each word
+	for (int i=0; i<size+1; i++)
+	{
+	  if (str[i]==' ' || str[i]=='\0')
+      {
+        ctr1 += 1;
+        a[ctr1-1]=ctr2;
+        ctr2 = 0;
+      }
+      else
+      {
+        ctr2 += 1;
+      }
+      
+	}
+    
+    //print results
+    printf ("Total number of words: %d\n", ctr1);
+
+    printf ("Number of characters for each:");
+    
+    for (int i=0; i < ctr1; i++)
+    {
+      if (i==ctr1-1)
+      {
+          a[i]-=1;
+      }
+      printf ("%d ", a[i]);
+    }
+    
+	return 0;
+}
+
+/*Sample
+Enter a string: let's have some fun                                                                                                      
+Total number of words: 4                                                                                                                 
+Number of characters for each:5 4 4 3 
+*/

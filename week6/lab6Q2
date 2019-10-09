@@ -1,0 +1,37 @@
+/*
+Author: Sharon Cao           Date: 10/8/2019
+
+Describtion:
+2. Find quotient and remainder of division calculation by function with 2
+integers and pointers as follows
+void div_rem(int a, int b, int *quotient, int *remains);
+*/
+
+#include <stdio.h>
+
+void div_rem(int, int, int*, int*);
+
+int main()
+{
+	int a, b, quotient=0, remains=0;
+	printf ("Enter two integers to find their quotient and remains ");
+	scanf ("%d %d", &a, &b);
+	
+	div_rem( a, b, &quotient, &remains);
+	
+  printf ("The quotient of a and b is %d, the remains is %d", quotient, remains);
+
+	return 0;
+	
+}
+
+void div_rem(int a, int b, int *quotient, int *remains)
+{
+  *quotient=a/b;
+  *remains=a%b;
+}
+
+/*Sample
+Enter two integers to find their quotient and remains 13 3
+The quotient of a and b is 4, the remains is 1
+*/

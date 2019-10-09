@@ -1,0 +1,50 @@
+/*
+Author: Sharon Cao           Date: 10/8/2019
+
+Describtion:
+3. Write a program in C to calculate the length of the string using a pointer.
+Output:
+Input a string : pointers
+The length of the given string pointers is:8
+*/
+
+#include <stdio.h>
+
+int main ()
+{
+	char str [];
+	
+}
+
+
+#include <stdio.h>
+
+int calculateLength(char*);
+ 
+int main() 
+{
+   char str1[1000];
+   int length;
+   printf("Input a string: ");
+   fgets(str1, sizeof str1, stdin);
+   
+   length = calculateLength(str1);
+   printf("The length of the given string is: %d ", length);
+  return 0;
+}
+ 
+int calculateLength(char* ch) 
+{
+   int ctr = 0;
+   while (*ch != '\0') 
+   {
+      ctr++;
+      ch++;
+   }
+   return ctr-1;
+}
+
+/*Sample
+Input a string: wonderfull
+The length of the given string is: 10
+*/
