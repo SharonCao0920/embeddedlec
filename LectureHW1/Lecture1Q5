@@ -1,0 +1,159 @@
+/*
+Arthuor: Sharon Cao     Date: 9/25/2019
+
+Description:
+5. There is a kind of bacterium with two sub-species A and B. They are very similar and
+difficult to differentiate, but the major difference between them is capability of
+reproduction. And reproduction in A is much stronger than that of B. Assuming that in a
+research center, researcher massed up Petri dishes with A and B bacterium, write a
+program to find which one is A, and which one is B in terms of each reproduction rate,
+given that reproduction rate is the ratio of new number of bacteria to original number after
+one hour (PR = new bacterial number / original bacterial numbers). Because of the huge
+different reproduction rate, it means that the difference of PR in any two Petri dishes
+belonging to the same sub-species is extremely smaller than that in any two Petri dishes
+belonging to the different sub-species.
+Output
+Enter total number of Petri dishes: 5
+Enter Petri dish label, original bacterial number, new bacterial number
+after one hour reproduction:
+1 10 3456
+2 10 5644
+3 10 4566
+4 20 234
+5 20 232
+Running results:
+3 in A sub-species and Petri dish labels from smaller PR to bigger PR are 1 3 2
+2 in B sub-species and Petri dish labels from smaller PR to bigger PR are 5 4
+*/
+
+#include <stdio.h>
+
+void sortarray ();
+
+int findlargest (float[], int);
+
+int main ()
+{
+	int num;
+	
+	printf ("Enter total number of Petri dishes: ");
+	scanf ("%d", &num);
+	
+	int label[num], originalNum[num], newBac[num];
+	float pr[num];
+	printf ("Enter Petri dish label, original bacterial number, new bacterial number after one hour reproduction:\n");
+	
+	//read and save data into array
+	for (int i=0; i<num; i++)
+	{
+		scanf ("%d%d%d", &label[i], &originalNum[i], &newBac[i] );
+		pr[i]=(float)newBac[i]/originalNum[i];
+    
+	}
+    
+	/*
+  //print arrays
+	for (int i=0; i<num; i++)
+  {
+    printf ("%d %d  %d   %.2f\n", label[i], originalNum[i], newBac[i], pr[i]);
+  }
+  */
+
+	//sorting
+	sortarray ( pr, label, num);
+	
+  float diff[num-1];
+	for (int i=0; i<num-1; i++)
+	{
+		diff[i]= pr[i+1]-pr[i];
+    //printf ("%.2f ", diff[i]);
+	}
+
+  int n;
+  n=findlargest (diff, num);
+  printf("Running results:");
+  printf("\n%d in A sub-species and Petri dish labels from smaller PR to bigger PR are:\n", n+1);
+  for (int i=0; i< num; i++)
+  {
+    if (i<n+1)
+    {
+      printf ("%d ", label[i]);
+    }
+  }
+
+  printf("\n%d in B sub-species and Petri dish labels from smaller PR to bigger PR are:\n", num-n-1);
+  for (int i=0; i< num; i++)
+  {
+    if (i>=n+1)
+    {
+      printf ("%d ", label[i]);
+    }
+  }
+	
+	return 0;	
+}
+
+
+//function to sort array
+ void sortarray (float pr[], int label[], int num)
+ {
+	 for (int i=1; i<num; i++)
+	 {
+		 for (int j=0; j<num-i; j++)
+		 {
+			float temp1; 
+      int temp2;
+			if (pr[j]>pr[j+1])
+			{ 
+				temp1 = pr[j];
+				pr[j] = pr[j+1];
+				pr[j+1] = temp1;
+				
+				temp2 = label[j];
+				label[j] = label[j+1];
+				label[j+1] = temp2;
+        
+			}		 
+		 }
+	 }
+   /*
+   for (int i=0; i<num; i++)
+   {
+     printf ("%.2f ", pr[i]);
+   }
+   for (int i=0; i<num; i++)
+   {
+     printf ("%d ", label[i]);
+   }
+   */
+ }
+
+ int findlargest (float diff[], int num)
+ {
+   int max, i=0;
+   max = i;
+   for (i=0; i< num-2; i++)
+   {
+     if (diff[i+1]>diff[max])
+     {
+       max=i+1;
+     }
+   }
+   //printf ("%d", max);
+   return max;
+ }
+ 
+ /* Sample
+Enter total number of Petri dishes: 5
+Enter Petri dish label, original bacterial number, new bacterial number after one hour reproduction:
+1 10 3456
+2 10 4566
+3 10 5644
+4 20 234
+5 20 232
+Running results:
+2 in A sub-species and Petri dish labels from smaller PR to bigger PR are:
+5 4
+3 in B sub-species and Petri dish labels from smaller PR to bigger PR are:
+1 2 3
+*/

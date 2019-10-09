@@ -1,0 +1,52 @@
+
+
+
+/*
+Arthuor: Sharon Cao     Date: 9/25/2019
+
+Description:
+4. Write a program to calculate how many 1s is for a decimal number as input arguments
+Output
+Enter decimal number: 15
+There are 4 ones in given decimal number
+Notice that 15’s binary number is 1111
+*/
+
+#include<stdio.h>    
+#include<stdlib.h>  
+
+int main()
+{  
+  int a[10],n,i; 
+  int counter=0;   
+  system ("cls");  
+  printf("Enter the number to convert: ");    
+  scanf("%d",&n);    
+  
+  for(i=0;n>0;i++)    
+  {    
+   a[i]=n%2;    
+   n=n/2;    
+  }    
+  printf("\nBinary of Given Number is = ");    
+  
+  for(i=i-1;i>=0;i--)    
+  { 
+    
+    if (a[i]==1)
+    {
+      counter += 1;
+    }   
+    printf("%d",a[i]);  
+  } 
+
+  printf ("\nThere are %d 1s.", counter);     
+  return 0;  
+}  
+
+/*Result
+Enter the number to convert: 15
+
+Binary of Given Number is = 1111
+There are 4 1s.
+*/

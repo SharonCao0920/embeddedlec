@@ -1,0 +1,70 @@
+/*
+Arthuor: Sharon Cao     Date: 9/25/2019
+
+Description:
+1. Write a program to read-in numbers (integer) from keyboard and save them to an array,
+and then sort them ascendingly by bubble sorting method. After that, print them out
+Output
+Enter a number of array’s size for a series of numbers saving: 5
+Enter a series of numbers: 5 6 2 7 1
+After sorting, output sequence: 1 2 5 6 7
+*/
+
+#include <stdio.h>
+ 
+ void sortarray ();
+ 
+ int main ()
+ {   
+     //declaration 
+	 int size;
+	 
+	 //instructions and read inputs from keyboard
+	 printf ("Enter a number of array’s size for a series of numbers saving: ");
+	 scanf("%d", &size);
+	 
+	 int a[size];
+	 //read and save inputs into array
+	 printf("Enter a series of numbers: ");
+	 for (int i=0; i<size; i++)
+	 {
+		 scanf("%d", &a[i]);
+	 }
+
+    //sorting    
+	printf ("After sorting, output sequence: ");
+	sortarray (a, size);
+    
+	 return 0;
+ }
+ 
+ //function to sort array
+ void sortarray (int a[], int size)
+ {
+	 for (int i=1; i<size; i++)
+	 {
+		 for (int j=0; j<size-i; j++)
+		 {
+			int temp;
+			if (a[j]>a[j+1])
+			{
+				temp = a[j];
+				a[j] = a[j+1];
+				a[j+1] = temp;
+			}		 
+		 }
+	 }
+	 
+   //print sorted array
+   for (int i=0; i<size; i++)
+   {
+     printf ("%d", a[i]);
+   }
+   
+ } 
+ 
+/* Sample
+Enter a number of array’s size for a series of numbers saving: 7                                                                                     
+Enter a series of numbers: 5 8 1 3 6 4 0                                                                                                             
+After sorting, output sequence: 0 1 3 4 5 6 8
+*/

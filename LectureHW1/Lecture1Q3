@@ -1,0 +1,45 @@
+/*
+Arthuor: Sharon Cao     Date: 9/25/2019
+
+Description:
+3. If there is a pancake and taking one cut, it will become 2 pieces. Of course, taking two
+cuts will create 4 pieces. Write a program to calculate how many pieces can be gotten if
+taking n cuts
+ Output
+Enter how many cuts you want: 2
+Pieces will be: 4 
+ Output
+Enter how many cuts you want: 3
+Pieces will be: 7
+*/
+
+#include <stdio.h>
+
+int main ()
+{
+	int cut;
+	
+	printf("Enter how many cuts you want: ");
+	scanf ("%d", &cut);
+	
+	int piece=2;
+	for (int i=1; i<=cut; i++)
+	{
+		if (i > 1)
+		{
+			piece += i;
+		}
+	}
+	
+	printf("Pieces will be: %d ", piece);
+	
+	return 0;
+}
+
+/* Sample
+Enter how many cuts you want: 5
+Pieces will be: 16
+
+Enter how many cuts you want: 1
+Pieces will be: 2
+*/
