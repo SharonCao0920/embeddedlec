@@ -1,7 +1,5 @@
 /*
-Filename: C Language W4
-
-AUTHOR :    Sharon Cao         DATE :  09/26/2019
+Author: Sharon Cao   Date: 10/2/2019
 
 Description:
 1. Find whether given number is a prime number or not.
@@ -58,45 +56,3 @@ Please enter any number:
 prime number?:
 No
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2. Display "Hi You did good job" from the right to shift in.
-3. Display from 0000 to 9999 after certain time delay to increase one, such as "0000 ->
-0001-> 0002-> ... ...->9999" on four 7-segment LEDs.

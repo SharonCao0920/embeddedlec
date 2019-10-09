@@ -1,0 +1,75 @@
+/*
+Author: Sharon Cao   Date: 10/2/2019
+
+Description:
+8. Find transpose of a matrix by 2-dimentional array and row & column size
+are from keyboard
+Output:
+Enter row size of array: 3
+Enter column size of array: 2
+Enter (row x column) elements in array: 1 2 3 4 5 6
+Transpose of a matrix:
+1 3 5
+2 4 6
+*/
+#include <stdio.h>
+
+int main()
+{
+    int r, c, i, j;
+    printf("Enter rows size of array: ");
+    scanf("%d", &r);
+   	printf("Enter column size of array: ");
+    scanf("%d", &c);
+	
+    int a[r][c], transpose[c][r];
+    
+    // Storing elements of the matrix
+    printf ( "Enter (%d x %d) elements in array: ",r, c);
+
+    for(i=0; i<r; ++i)
+        for(j=0; j<c; ++j)
+        {
+            scanf("%d", &a[i][j]);
+        }
+
+    /*
+    // Displaying the matrix a[][]
+    printf("\nEntered Matrix: \n");
+    for(i=0; i<r; i++)
+        for(j=0; j<c; j++)
+        {
+            printf("%d  ", a[i][j]);
+            if (j == c-1)
+                printf("\n\n");
+        }
+    */
+
+    // transpose of matrix a
+    for(i=0; i<r; i++)
+        for(j=0; j<c; j++)
+        {
+            transpose[j][i] = a[i][j];
+        }
+
+    // print the transpose of matrix a
+    printf("\nTranspose of Matrix:\n");
+    for(i=0; i<c; i++)
+        for(j=0; j<r; j++)
+        {
+            printf("%d  ",transpose[i][j]);
+            if(j==r-1)
+                printf("\n");
+        }
+    return 0;
+}
+
+/*Sample
+Enter rows size of array: 3
+Enter column size of array: 2
+Enter (3 x 2) elements in array: 1 2 3 4 5 6
+
+Transpose of Matrix:
+1  3  5
+2  4  6
+*/
