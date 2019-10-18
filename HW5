@@ -1,0 +1,777 @@
+/*
+Author: Sharon Cao              Date: 9/30/2019
+
+Description:
+1. Find multiplication of two matrices. 
+ 
+Output: 
+ 
+Enter 2-dimensional array size: 2  3 
+
+Enter numbers for each element in two arrays:  1 2 3 4 5 6 1 4 2 5 3 6 
+ 
+Result after multiplication of two arrays:    
+14 32                                                                                 
+32 77 
+ 
+Hint: rule of multiplication for two arrays 
+ 
+ */
+#include <stdio.h>
+ 
+ int main ()
+ {   
+    //declaration and instructions
+	int row, column;
+	
+	//read and stroe array a input
+	printf("Enter 2-dimensional array size: ");
+	scanf ("%d %d", &row, &column);
+	
+	int a [row][column], b [column][row];
+	printf ("Enter numbers for each element in two arrays: ");
+	
+	//read and save number entered into array
+	for (int i=0; i < row; i++)
+	{ 
+      for (int j=0; j<column; j++)
+	  {
+      scanf("%d", &a[i][j]);
+	  }
+	}
+	
+	//read and save number entered into array
+	for (int i=0; i < column; i++)
+	{ 
+      for (int j=0; j< row; j++)
+	  {
+      scanf("%d", &b[i][j]);
+	  }
+	}
+		
+	int c[row][row];
+  
+	for (int x=0; x<row; x++)
+	{
+		for (int i=0; i<row; i++)
+		{ 
+      c[x][i]=0;
+			for (int j=0; j<column; j++)
+		    {
+         
+			   c[x][i] += a [x][j] * b[j][i];
+		    }
+		}
+	}
+	
+	printf ("Result after multiplication of two arrays: \n");
+	
+    for (int i=0; i<row; i++)
+	  {
+		for (int j=0; j<row; j++)
+		{
+			printf ("%d ", c[i][j]);
+      if (j==row-1)
+      {
+        printf ("\n");
+      }
+		}	
+	}
+	return 0;
+ }
+ /*Sample
+ Enter 2-dimensional array size: 2 3
+Enter numbers for each element in two arrays: 1 2 3 4 5 6 1 4 2 5 3 6
+Result after multiplication of two arrays:
+14 32
+32 77
+*/
+
+
+/*
+Author: Sharon Cao Date: 9/30/2019
+
+Description:
+2. Swap two numbers by pointer 
+ 
+Output: 
+ 
+Enter two numbers a & b: 2  3 
+ 
+After swapping by pointer, a = 3, b=2 
+*/
+
+#include <stdio.h>
+
+int main ()
+{
+	int a, b, temp;
+	int *x=NULL, *y=NULL;
+	
+	//read and save to numbers
+	printf ("Enter two numbers a & b: ");
+	scanf ("%d%d", &a, &b);
+	
+	//swap with pointers
+	x=&a;
+	y=&b;
+	temp=a;
+	a=*y;
+	b=temp;
+	
+	//print result after swaping
+	printf ("\nAfter swapping by pointer, a = %d, b=%d", a, b);
+	
+	return 0;
+	
+}
+
+/*Sample
+Enter two numbers a & b: 45 67                                                                                                
+                                                                                                                              
+After swapping by pointer, a = 67, b=45   
+*/
+
+/* 
+Author: Sharon Cao             Date: 9/30/2019
+
+Description:
+3. Study built-in functions "gets()", "puts() ","getchar()", "putchar()" in C language 
+about string & char process. And then write program to input and output of a string 
+ 
+Output: 
+ 
+Enter any string: hi everyone 
+ 
+Result: hi everyone 
+
+*/
+
+#include <stdio.h>
+
+int main()
+{
+	char str[1000];
+	printf ("Enter any string: ");
+	gets(str);
+	printf ("Result: %s", str);
+	
+	
+	return 0;
+	
+}
+/*Sample
+Enter any string: too much homework                                                                                           
+Result: too much homework 
+*/
+
+/* 
+Author: Sharon Cao           Date: 9/30/2019
+
+Description:
+4. Find factorial of a number using recursion 
+ 
+Output:  
+Enter a number: 5  
+ 
+Factorial=120 
+ */
+ 
+ #include <stdio.h>
+ 
+ int fac ();
+ 
+ int main ()
+ {
+	 int num;
+	 printf ("Enter a number: ");
+	 scanf ("%d", &num);
+	 
+	 //call and print function result
+	 printf("Factorial = %d",fac(num));
+	 
+	 return 0;
+ }
+ 
+ //recursive function
+ int fac(int num)
+ {
+	if (num>0)
+	return num*fac(num - 1);
+	else
+	return 1;
+ }
+ 
+ /* Sample
+Enter a number: 6                                                                                                             
+Factorial = 720 
+*/ 
+
+/*
+Author: Sharon Cao       Date: 9/30/2019
+
+Description:
+5. Study functions "strcpy()" and "strrev()" in C language, 
+and then write a program to check if a string is palindrome or not 
+ 
+Output:  
+
+Enter a string: abc 
+ 
+Result: not a palindrome string 
+ 
+Enter a string: radar 
+ 
+Result: yes, it is a palindrome string 
+ 
+Hint: other examples of palindrome word, such as  
+ 
+refer, level, mom, madam, rotor, … … 
+*/
+
+#include <stdio.h>
+#include <string.h>
+ 
+int main()
+{
+  char strA[1000], strB[1000];
+ 
+  printf("Enter a string: \n");
+  gets(strA);
+  
+  // Copy the input strA to strB
+  strcpy(strB, strA);  
+  
+  // Reverse strB
+  strrev(strB);  
+ 
+  // Compare the two string
+  if (strcmp(strA, atrB) == 0)  
+    printf("Yes, it is a palindrome string.\n");
+  else
+    printf("Not a palindrome string .\n");
+ 
+  return 0;
+}
+/*Sample
+Enter a string:
+radar
+Yes, it is a palindrome string.
+
+Process returned 0 (0x0)   execution time : 6.762 s
+Press any key to continue.
+*/
+
+
+
+/* Method 2
+without using functions "strcpy()" and "strrev()" in C language
+*/
+
+#include <stdio.h>
+
+int stringCompare();
+
+int main ()
+{
+	int size; 
+	printf ("Enter the size of string: ");
+	scanf("%d", &size);
+	
+	char str1[size], str2[size];
+  printf("Enter the string: ");
+	for (int i=0; i<size; i++)
+	{
+		scanf("%s", &str1[i]); 
+	}
+/*
+ for (int i=0; i<size; i++)
+ {
+   printf ("%c", str1[i]);
+ }*/
+
+//reverse the array and save to str2
+  for (int i=0, j=size-1; i<size , j>=0; i++,j--)
+  {
+      str2[i]=str1[j];
+  }
+
+  
+ /* //print array str2
+  for (int i=0; i<size; i++)
+  {
+   printf ("%c", str2[i]);
+  }
+*/
+  int compare;
+  compare = stringCompare(str1, str2);  // function call
+    
+  if(compare == 1)
+    printf("Yes, it is a palindrome string.\n");
+  else
+    printf("Not a palindrome string .\n");
+  
+	return 0;
+}
+
+int stringCompare(char str1[], char str2[])
+{
+    int i = 0, flag = 0;
+    //check the two arrays whether the same
+    while(str1[i] != '\0' && str2[i] != '\0') 
+    {
+        if(str1[i] != str2[i]) 
+        {
+            flag = 1;
+            break;
+        }
+        i++;
+    }
+    //return result to function
+    if(flag == 0 && str1[i] == '\0' && str2[i] == '\0')
+        return 1;
+    else
+        return 0;
+}
+
+/*Sample
+Enter the size of string: 6
+Enter the string: a s d d s a
+Yes, it is a palindrome string.
+*/
+
+
+
+/*
+Author: Sharon Cao       Date: 9/30/2019
+
+Description:
+6. Merging one-dimensional array - excluding repeating element 
+ 
+Output: 
+Enter the size of 1st array: 3 
+Enter each element:  3  5  7 
+Enter the size of 2nd  array: 3 
+Enter each element:  2  5  9 
+ 
+Result of merging:  3 5 7 2 9 
+*/
+
+#include<stdio.h>
+ 
+void sortarray ();
+
+int main() 
+{
+ int n1;
+ printf("Enter the size of 1st array: ");
+ scanf("%d", &n1);
+ int a[n1];
+ printf("Enter each element: ");
+ for (int i=0; i<n1; i++)
+ {
+	scanf("%d", &a[i]);
+ }
+ 
+ int n2;
+ printf("Enter the size of 2nd array: ");
+ scanf("%d", &n2);
+ int b[n2];
+ printf("Enter each element: ");
+ for (int i=0; i<n2; i++)
+ {
+	scanf("%d", &b[i]);
+ }
+ 
+ int size=n1+n2, c[size], ctr=0;
+ for (int i=0; i<n1; i++)
+ {
+	 c[i]=a[i];
+	 ctr++;
+ }
+ 
+ for (int i=0; i<n2; i++)
+ {
+	 c[ctr]=b[i];
+	 ctr++;
+ }
+ 
+ /*
+ for (int i=0; i<size; i++)
+ {
+	 printf("%d ", c[i]);
+ }
+ */
+ //sorting
+	sortarray (c, size);
+ 
+ //loop to remove duplicate
+	 for (int i=0; i<size-1; i++)
+  {
+	  if (c[i]!=c[i+1])
+	  {
+		  printf ("%d ", c[i]);
+	  }
+    if (i==size-2 && c[i]!=c[i+1])
+    {
+      printf("%d", c[i+1]);
+    }
+  }
+ 
+ 
+ return 0;
+}
+//function to sort array
+ void sortarray (int c[], int size)
+ {
+	 for (int i=1; i<size; i++)
+	 {
+		 for (int j=0; j<size-i; j++)
+		 {
+			int temp;
+			if (c[j]>c[j+1])
+			{
+				temp = c[j];
+				c[j] = c[j+1];
+				c[j+1] = temp;
+			}		 
+		 }
+	 }
+   /*
+   for (int i=0; i<size; i++)
+   {
+     printf ("%d", c[i]);
+   }
+   */
+ } 
+ 
+ /*Sample
+ Enter the size of 1st array: 4
+Enter each element: 4 3 6 7
+Enter the size of 2nd array: 3
+Enter each element: 3 5 7
+3 4 5 6
+*/
+
+
+
+/*
+Author: Sharon Cao          Date: 9/30/2019
+
+Description:
+7. Write a program to print binomial coefficient table 
+ 
+Output: Enter the order of binomial power expression: 3 
+ 
+Results of printing on monitor:  1 1 1 1 2 1 1 3 3 1 
+ 
+Enter the order of binomial power expression: 6   
+Results of printing on monitor:  1 1 1 1 2 1 1 3 3 1 1 4 6 4 1 1 5 10 10 5 1 1 6 15 20 15 6 1 
+ 
+Hint: binomial power expression is like (1 + 𝑥)𝑛 = ∑ (𝑛 𝑘)𝑥𝑘𝑛 𝑘=0 and binomial coefficients  (𝑛 𝑘) = 𝑛! 𝑘!(𝑛−𝑘)!
+ e.g (1 + 𝑥)0 = 1 and coefficients: 1 (1 + 𝑥)2 = 1 + 2𝑥 + 𝑥2 and coefficients: 1  2  1  (1 + 𝑥)5 = 1 + 5𝑥 + 10𝑥2 + 10𝑥3 + 5𝑥4 + 𝑥5 and coefficients: 1 5 10 10 5 1 
+*/
+
+#include <stdio.h> 
+  
+// Function to print binomial table 
+int printbinomial(int max) 
+{ 
+    for (int m = 0; m <= max; m++) { 
+        printf("%2d", m); 
+        int binom = 1; 
+        for (int x = 0; x <= m; x++) { 
+  
+            // B(m, x) is 1 if either m or x is 
+            // is 0. 
+            if (m != 0 && x != 0) 
+  
+                // Otherwise using recursive formula 
+                // B(m, x) = B(m, x - 1) * (m - x + 1) / x 
+                binom = binom * (m - x + 1) / x; 
+  
+            printf("%4d", binom); 
+        } 
+        printf("\n"); 
+    } 
+} 
+  
+// Driver Function 
+int main() 
+{ 
+    int max = 10; 
+    printbinomial(max); 
+    return 0; 
+} #include <stdio.h> 
+  
+void printbinomial();
+  
+// Driver Function 
+int main() 
+{ 
+    int size;
+    printf("Enter the order of binomial power expression: ") ;
+    scanf("%d", &size);
+
+    printf("Results of printing on monitor: \n");
+    //call function to print
+    printbinomial(size); 
+    return 0; 
+} 
+
+//function to printbinomial
+void printbinomial(int size) 
+{ 
+    for (int m = 0; m <= size; m++) 
+    { 
+      int binom = 1; 
+      for (int x = 0; x <= m; x++) 
+      { 
+        if (m != 0 && x != 0) 
+        {
+          // Otherwise using recursive formula 
+          // B(m, x) = B(m, x - 1) * (m - x + 1) / x 
+          binom = binom * (m - x + 1) / x; 
+        }
+          printf("%5d", binom); 
+      } 
+        printf("\n"); 
+    } 
+}
+
+/*Sample
+Enter the order of binomial power expression: 5
+Results of printing on monitor:
+    1
+    1    1
+    1    2    1
+    1    3    3    1
+    1    4    6    4    1
+    1    5   10   10    5    1
+*/
+ 
+ 
+/*
+Author: Sharon Cao      Date: 9/30/2019
+
+Description:
+8. Write a program to remove the duplicate element in an array 
+ 
+Output: 
+Enter size of the array:5 
+Enter numbers for each element: 3  3  4  6  4 
+Results of removing duplicate: 3  4  6 
+ 
+Hint: sort the array first, and then shift array if there is a duplicate element 
+*/
+#include <stdio.h>
+ 
+ void sortarray ();
+ 
+ int main ()
+ {   
+     //declaration 
+	 int size;
+	 
+	 //instructions and read inputs from keyboard
+	 printf ("Enter size of the array: ");
+	 scanf("%d", &size);
+	 
+	 //read and save inputs into array
+	 int a[size];
+	 printf("Enter numbers for each element: ");
+	 for (int i=0; i<size; i++)
+	 {
+		 scanf("%d", &a[i]);
+	 }
+
+    //sorting
+	sortarray (a, size);
+    
+    //print the remaining after removing duplicate
+    printf ("Results of removing duplicate: ");
+    
+    //loop to remove duplicate
+	 for (int i=0; i<size-1; i++)
+  {
+	  if (a[i]<a[i+1])
+	  {
+		  printf ("%d ", a[i]);
+	  }
+    if (i==size-2 && a[i]<=a[i+1])
+    {
+      printf("%d", a[i+1]);
+    }
+  }
+	 return 0;
+ }
+ 
+ //function to sort array
+ void sortarray (int a[], int size)
+ {
+	 for (int i=1; i<size; i++)
+	 {
+		 for (int j=0; j<size-i; j++)
+		 {
+			int temp;
+			if (a[j]>a[j+1])
+			{
+				temp = a[j];
+				a[j] = a[j+1];
+				a[j+1] = temp;
+			}		 
+		 }
+	 }
+   /*
+   for (int i=0; i<size; i++)
+   {
+     printf ("%d", a[i]);
+   }
+   */
+ } 
+ 
+/* Sample
+Enter size of the array: 11
+Enter numbers for each element: 5 3 8 0 1 0 4 7 7 7 4
+Results of removing duplicate: 0 1 3 4 5 7 8
+*/
+
+/*
+Author: Sharon Cao      Date: 9/30/2019
+
+Description:
+9. Generate a program for finding the desired kth smallest element in an array 
+ 
+Output: Enter size of the array:7 
+Enter numbers for each element: 3  3  4  6  4  3  7 
+Enter desired kth smallest element: 3 
+ 
+Result of 3rd smallest element: 6 
+ */
+ 
+#include <stdio.h>
+ 
+ void sortarray ();
+ 
+ int main ()
+ {
+	 int size, a[100];
+	 int num;
+	 
+	 printf ("Enter size of the array: ");
+	 scanf("%d", &size);
+	 
+	 printf("Enter numbers for each element: ");
+	 for (int i=0; i<size; i++)
+	 {
+		 scanf("%d", &a[i]);
+	 }
+	 
+	 sortarray ( a, size);
+	 
+	 printf ("Enter desired kth smallest element: ");
+	 scanf ("%d", &num);
+	 
+	 printf ("Result of %d smallest element: ",num);
+	 
+   for (int i=0; i<size; i++)
+	 {
+		 if (i==num-1)
+		 {
+			 printf ("%d", a [i]);
+		 }
+	 }
+	 
+	 return 0;
+ }
+ 
+ void sortarray (int a[], int size)
+ {
+	 for (int i=1; i<size; i++)
+	 {
+		 for (int j=0; j<size-i; j++)
+		 {
+			int temp;
+			if (a[j]>a[j+1])
+			{
+				temp = a[j];
+				a[j] = a[j+1];
+				a[j+1] = temp;
+			}		 
+		 }
+	 }
+   /*
+   for (int i=0; i<size; i++)
+   {
+     printf ("%d", a[i]);
+   }
+   */
+ }
+
+/* Sample
+Enter size of the array: 9                                                                                                                           
+Enter numbers for each element: 5 8 7 1 9 3 6 4 8                                                                                                    
+Enter desired kth smallest element: 5                                                                                                                
+Result of 5 smallest element: 6  
+*/
+
+
+/*
+Author: Sharon Cao      Date: 9/30/2019
+
+Description:
+10. Calculate standard deviation by C program 
+Output: Enter size of the array: 8 
+Enter numbers for each element: 10  12  23  23  16  23  21  16 
+ 
+Result of Standard Deviation: 4.8989794855664 
+ 
+Hint: calculation equation is as follows 
+ 
+   Where μ is mean value 
+ 
+As below is the online S.D. calculator for your program debugging  
+ 
+https://www.calculator.net/standard-deviationcalculator.html?numberinputs=10%2C+12%2C+23%2C+23%2C+16%2C+23%2C+21%2C+16&ctype=p&x=82&y=17 
+ */
+ 
+ #include <stdio.h>
+#include <math.h>
+
+float calculateSD();
+
+int main()
+{
+    int i, size;
+    printf("Enter size of the array: ");
+    scanf("%d", &size);
+
+    float a[size];
+    printf("Enter numbers for each element: ");
+    for(i=0; i < size; ++i)
+    {
+      scanf("%f", &a[i]);
+    }  
+
+    printf("Standard Deviation = %.8f", calculateSD(a, size));
+    return 0;
+}
+float calculateSD(float a[], int size)
+{
+    float sum = 0.0, mean, standardDeviation = 0.0;
+    int i;
+    for(i=0; i<size; ++i)
+    {
+        sum += a[i];
+    }
+    mean = sum/size;
+    for(i=0; i<size; ++i)
+        standardDeviation += pow(a[i] - mean, 2);
+    return sqrt(standardDeviation/size);
+}
+
+/*Sample
+Enter size of the array: 8
+Enter numbers for each element: 10 12 23 23 16 23 21 16
+Standard Deviation = 4.89897966
+*/
