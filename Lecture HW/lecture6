@@ -1,0 +1,354 @@
+/*
+Author: Sharon Cao    Date: 10/10/2019
+
+Description:
+1. Given an array with integer numbers read-in from keyboard to each element, write
+program to rotate these integer numbers by m times scanned-in from key board.
+Notice that only one array in your program is allowed
+Output:
+Enter an array size: 11
+Enter number of rotation: 4
+Enter numbers for your array: 15 3 76 67 84 87 13 67 45 34 45
+Results: 67 45 34 45 15 3 76 67 84 87 13
+*/
+
+#include <stdio.h>
+
+int main ()
+{
+	int size;
+	printf ("Enter an array size: ");
+	scanf ("%d", &size);
+	
+	int array[size], num;
+	printf("Enter number of rotation: ");
+	scanf ("%d", &num);
+	
+	//read and store array
+    printf ("Enter numbers for your array: ");
+	for (int i=0; i<size; i++)
+	{
+		scanf  ("%d", &array[i]);
+	}
+    /*
+    //printn arrary to check write-in
+	printf ("Array is: ");
+	for (int i=0; i<size; i++)
+	{
+		printf ("%d ", array[i]);
+	}
+	*/
+	
+    //rotation for elements
+	for (int j=0; j<num; j++)
+	{
+		int temp;
+	   temp=array[size-1];
+	   for (int i=size-1; i>=0; i--)
+	   {
+		 
+     if (i== 0)
+		 {
+			array[i]=temp;
+		 }
+		 else
+		 {
+			array[i]=array[i-1];
+		 }
+	   }
+	}
+	
+  	printf ("Array after retation is: ");
+	for (int i=0; i<size; i++)
+	{
+		printf ("%d ", array[i]);
+	}
+	return 0;
+}
+/* Sample
+Enter an array size: 11
+Enter number of rotation: 4
+Enter numbers for your array: 15 3 76 67 84 87 13 67 45 34 45
+Array after retation is: 67 45 34 45 15 3 76 67 84 87 13
+*/
+
+/*
+Author: Sharon Cao    Date: 10/10/2019
+
+Description:
+2. Assume that a school is located along the straight long road with length L, and
+trees with even 1 meter distance between any two were planted on one side of the
+road. You may take this road as x axis starting zero point a
+Result of number of trees needed to move: ?
+Enter the length of the road: 500
+Enter how many areas are needed for new facilities: 4
+area#1 staring point & ending point: 100 200
+area#2 staring point & ending point: 150 160
+area#3 staring point & ending point: 180 190
+area#3 staring point & ending point: 150 300
+Result of number of trees needed to move: ?
+*/
+
+#include <stdio.h>
+
+void sortarray ();
+
+int main ()
+{
+  int lengthL, num;
+  //read length from input
+  printf("Enter the length of the road: ");
+  scanf("%d", &lengthL);
+
+  //read facility info from input
+  printf("Enter how many areas are needed for new facilities: ");
+  scanf("%d", &num);
+
+  int array[2*num];
+  int counter=0;
+
+  //read the inputs and save to array
+  for (int i=0; i<num; i++)
+  {
+     int a, b;
+     printf("area #%d staring point & ending point: ", i+1);
+     scanf ("%d %d", &a, &b);
+     array [counter]=a;
+     array [counter+1]=b;
+     counter+=2;
+  }
+  //sort the array
+  sortarray (array, 2*num);
+
+  /*
+  //print to check the array
+  for (int i=0; i<2*num; i++)
+  {
+    printf("%d ", array[i]);
+  }
+  */
+
+  //calculate and print trees to be removed
+  int result;
+  result=array[2*num-1]-array[0]+1;
+  printf("Result of number of trees needed to move: %d", result);
+
+  return 0;
+  }
+
+  //function to sort array
+   void sortarray (int a[], int size)
+ {
+	 for (int i=1; i<size; i++)
+	 {
+		 for (int j=0; j<size-i; j++)
+		 {
+			int temp;
+			if (a[j]>a[j+1])
+			{
+				temp = a[j];
+				a[j] = a[j+1];
+				a[j+1] = temp;
+			}
+		 }
+	 }
+ }
+ 
+/*Sample
+Enter the length of the road: 500
+Enter how many areas are needed for new facilities: 4
+area #1 staring point & ending point: 100 200
+area #2 staring point & ending point: 150 160
+area #3 staring point & ending point: 180 190
+area #4 staring point & ending point: 150 300
+Result of number of trees needed to move: 201
+Process returned 0 (0x0)   execution time : 23.713 s
+Press any key to continue.
+*/
+
+
+/*
+Author: Sharon Cao    Date: 10/10/2019
+
+Description:
+3. Write a program to verify whether a number from keyboard input is divisible by 3,
+5 and 7 or not
+a. If it is divisible by all three numbers, print 3,5,7 results on the screen
+b. If it is divisible by any two numbers, print two numbers from 3, 5 ,7
+ascendingly on the screen
+c. If it is divisible by only one number, just print it on the screen
+d. If it is NOT divisible by any one number, just print NOT on the screen
+*/
+
+#include <stdio.h>
+
+int main()
+{
+	int num, counter=0; 
+	printf ("Enter an integer: ");
+	scanf ("%d", &num);
+	int a=3, i=0;
+  for (i=0; i<3; i++)
+  {
+    if (num%a==0)
+	  {
+		if (counter!=0)
+		{
+		  printf(", ");
+		} 
+        counter+=1;
+        printf ("%d", a);
+	  }
+    a+=2;
+  }
+    
+
+  //not divisible by all three numbers
+	if (num%3!=0 && num%5!=0 && num%7!=0)
+	{
+		printf ("Not");
+	}
+
+	return 0;
+}
+/* Sample
+Enter an integer: 105
+3, 5, 7
+
+Enter an integer: 35
+5, 7
+
+Enter an integer: 17
+Not
+
+*/
+
+
+/*
+Author: Sharon Cao    Date: 10/10/2019
+
+Description:
+4. Assume that there are four lakes b, d, t and h with totally different size. Based
+on the following descriptions, write a program to print the size sequence from
+small to big
+a. A student said: lake d is the biggest one; lake h is the smallest one;
+lake b is in third big place
+b. B student said: lake h is the biggest one; lake d is the smallest one; lake
+b is in second big place; lake t is in third big place
+c. C student said: lake h is the smallest; lake d is in third big place
+d. D student said: lake b is the biggest one; lake t is the smallest one;
+lake h is in second big place; lake d is in third big place
+Notice that there is only one correct answer from each student description
+*/
+ //A:    d x b h-> 2 0 1 3
+ //B:    h b t d -> 3 1 4 2
+ //C:    x x d h-> 0 0 2 3
+ //D:    b h d t -> 1 3 2 4
+ //Ans:           -> 1 2 4 3
+ //Ans:           ->  b d t h
+
+#include<stdio.h>
+
+void print(int *, int );
+
+int main()
+{
+  int temp;
+  int i, j;
+  //assume numbers to b, d, t, h
+  int num[4]={1, 2, 3, 4};
+
+  //all possibility combination
+    for (j = 1; j <= 4; j++)
+    {
+        for (i = 0; i < 4-1; i++)
+        {
+			print(num, 4);
+            temp = num[i];
+            num[i] = num[i+1];
+            num[i+1] = temp;   
+        }
+    }
+    return 0;
+}
+
+void print(int *num, int n)
+{
+    int i;
+    /*
+    for ( i = 0 ; i < n ; i++)
+    {
+       printf("%d", num[i]);
+    }
+    */
+    //check conditions
+    if (
+            ((num[0]==2) + 0+ (num[2]==1) + (num[3]==3) ==1)       //2 0 1 3
+            &&((num[0]==3) + (num[1]==1)+ (num[2]==4) + (num[3]==2) ==1) //3 1 4 2
+            &&(0 + 0 + (num[2]==2) + (num[3]==3) ==1 )                     //0 0 2 3
+            &&((num[0]==1) + (num[1]==3)+ (num[2]==2) + (num[3]==4) ==1)  // 1 3 2 4
+            )
+    {
+          printf ( "The size sequence from small to big is \n");
+          for (int i=0; i<4; i++)
+          {
+              //printf ("%d ", num[i]);
+              if (num[i]==1)
+                printf ("b ");
+              if (num[i]==2)
+                printf ("d ");
+              if (num[i]==3)
+                printf ("t ");
+              if (num[i]==4)
+                printf ("h ");
+          }
+    }
+}
+/*Sample
+The size sequence from small to big is
+b d h t
+Process returned 0 (0x0)   execution time : 3.478 s
+Press any key to continue.
+*/
+
+
+/*
+Author: Sharon Cao    Date: 10/10/2019
+
+Description:
+5. Write a program to read in any integer number from keyboard and print hailstone
+sequence.
+Hint: hailstone sequence is starting from any integer n. If it is odd, the next is
+3n+1, and then continues doing this, but if it is even, the next is n/2 until final
+pattern is always 4-2-1
+*/
+
+#include <stdio.h>
+
+int main ()
+{
+	int num; 
+	printf ("Enter an integer: ");
+	scanf ("%d", &num);
+	while (num!=1)
+	{
+		printf("%d ", num);
+		if (num%2==0)
+		{
+			num=num/2;
+		}
+		else
+		{
+			num=3*num+1;
+		}	
+	}
+  printf ("%d", num);
+	return 0;
+}
+
+/* Sample
+Enter an integer: 67
+67 202 101 304 152 76 38 19 58 29 88 44 22 11 34 17 52 26 13 40 20 10 5 16 8 4 2 1
+*/
+
+
