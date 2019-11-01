@@ -1,0 +1,382 @@
+/*
+Author: Sharon Cao    Date: 10/05/2019
+
+Description:
+1. Find the absolute value of maximum odd number minus minimum even number from
+standard input device by a program
+Output
+Enter a series of integer numbers: 1 2 3 4 5 6
+Result is: 3 // |5 - 2| =3
+Enter a series of integer numbers: 1 6 3 8 5 10
+Result is: 1 // |5 – 6| =1
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+ 
+ void sortarray (int a[], int size)
+ {
+	 for (int i=1; i<size; i++)
+	 {
+		 for (int j=0; j<size-i; j++)
+		 {
+			int temp;
+			if (a[j]>a[j+1])
+			{
+				temp = a[j];
+				a[j] = a[j+1];
+				a[j+1] = temp;
+			}		 
+		 }
+	 }
+ }
+ int findMax (int [], int);
+ int findMin (int [], int);
+ 
+ int main ()
+ {   
+    
+     //declaration 
+	 int size;
+	 
+	 //instructions and read inputs from keyboard
+	 printf ("Enter a number of array’s size for a series of numbers saving: ");
+	 scanf("%d", &size);
+	 
+   int a[size];
+	 //read and save inputs into array
+	 printf("Enter a series of numbers: ");
+	 for (int i=0; i<size; i++)
+	 {
+		 scanf("%d", &a[i]);
+	 }
+     
+    //sorting    
+	sortarray (a, size);
+	
+	int x[size], y [size], counterA=0, counterB=0, temp;
+    for (int i=0; i<size; i++)
+    {
+	   if (a[i]%2!=0)
+	   {
+		   x[counterA]=a[i];
+		   counterA += 1;
+	   }
+	   else
+	   {
+		   y[counterB]=a[i];
+		   counterB += 1;
+	   }
+    }
+    
+	int maxOdd, minEven;
+	maxOdd=findMax(x, counterA);
+	minEven=findMin(y, counterB);
+	
+	int result;
+	result = abs (maxOdd - minEven);
+	
+	printf ("Result is: %d", result);
+  
+	 return 0;
+ }
+
+//function to sort array
+ void sortarray (int a[], int size)
+ {
+	 for (int i=1; i<size; i++)
+	 {
+		 for (int j=0; j<size-i; j++)
+		 {
+			int temp;
+			if (a[j]>a[j+1])
+			{
+				temp = a[j];
+				a[j] = a[j+1];
+				a[j+1] = temp;
+			}		 
+		 }
+	 }
+ }
+
+int findMax (int x[], int counterA)
+{
+	int max;
+	max = x[0];
+	for (int i=1; i<counterA; i++)
+	{
+		if (x[i]>max)
+		{
+			max=x[i];
+		}
+	}
+	return max;
+}
+
+int findMin (int y[], int counterB)
+{
+	int min;
+	min = y[0];
+	for (int i=1; i<counterB; i++)
+	{
+		if (y[i]<min)
+		{
+			min=y[i];
+		}
+	}
+	return min;
+}
+
+/*Sample
+Enter a number of array’s size for a series of numbers saving: 6
+Enter a series of numbers: 1 2 3 4 5 6
+Result is: 3
+*/
+
+
+
+/*
+Author: Sharon Cao    Date: 10/05/2019
+
+Description:
+2. A group of monkeys want to elect a king based on the following rules.
+a. everyone is sitting in a circle and get number in clockwise direction from 0 to n-1
+b. with a given number m that is set up before, count each one in clockwise direction
+from 1 to m, and then mth monkey will be out from the competition
+c. after that, re-assign number right after mth monkey for each from 0 to n-2
+d. repeat above step b and c until the last one is left. And it will be the king
+e. the program running result should be king’s number in step a
+Output
+Enter total number of monkeys in a group: 5
+Enter m value: 3
+The king will be 3
+Enter total number of monkeys in a group: 8
+Enter m value: 5
+The king will be 2
+*/
+#include <stdio.h> 
+  
+int josephus(int n, int m) 
+{ 
+  if (n == 1) 
+    return 1; 
+  else
+    /* The position returned by josephus(n - 1, m) is adjusted because the 
+       recursive call josephus(n - 1, m) considers the original position  
+       m%n + 1 as position 1 */
+    return (josephus(n - 1, m) + m-1) % n + 1; 
+} 
+  
+// Driver Program to test above function 
+int main() 
+{ 
+  int n; 
+  int m; 
+  
+  printf("Enter total number of monkeys in a group: ");
+  scanf("%d", &n);
+  printf("Enter m value: ");
+  scanf("%d", &m);
+  
+  printf("The king will be %d", josephus(n, m)-1); 
+  return 0; 
+}
+
+/*Sample
+Enter total number of monkeys in a group: 8
+Enter m value: 5
+The king will be 2
+
+Enter total number of monkeys in a group: 5
+Enter m value: 3
+The king will be 3
+*/
+
+
+/*
+Author: Sharon Cao    Date: 10/05/2019
+
+Description:
+3. Write a program to calculate minimum number of bills for a given payment assuming
+existing bills, such as $100, $50, $20, $10, $5 and $1
+Output
+Enter total payment: 735
+Result of minimum number of bills: 10
+$100 bill: 7
+$50 bill: 0
+$20 bill: 1
+$10 bill: 1
+$5 bill: 1
+$1 bill: 0
+*/
+
+#include <stdio.h>
+
+int main ()
+{
+	int a[6]={100, 50, 20, 10, 5, 1}, b[6], num, ctr=0;
+	
+	printf ("Enter total payment: ");
+	scanf ("%d", &num);
+	
+  //counter for each bill
+	for (int i=0; i<6; i++)
+	{
+    b[i]= num / a[i];
+    num = num % a[i];
+    ctr += b[i];
+	}
+	
+  //print results
+  printf ("Result of minimum number of bills: %d\n", ctr);
+  for (int i=0; i<6; i++)
+  {
+    printf ("$%d bill: %d\n", a[i], b[i]);
+  }
+  
+	return 0;
+}
+
+/* Sample
+Enter total payment: 735
+Result of minimum number of bills: 10
+$100 bill: 7
+$50 bill: 0
+$20 bill: 1
+$10 bill: 1
+$5 bill: 1
+$1 bill: 0
+*/
+
+
+/*
+Author: Sharon Cao    Date: 10/05/2019
+
+Description:
+4. There are 4 types of racing sport cars with number from 1 to 4. And 4 car-design
+experts will review them and give 4 answers as follows
+a. expert A said: #2 is the best
+b. expert B said: #4 is the best
+c. expert C said: #3 is NOT the best
+d. expert D said: expert B is wrong
+Actually, only car is the best, and one & only one expert review is correct, the others
+are wrong. Write a program to calculate and print on the monitor which car is the best
+and which expert review is correct
+*/
+
+#include <stdio.h>
+
+int main ()
+{
+	int a=1, b=0, c=0, d=0; 
+	for (int i=0; i<4; i++)
+	{
+		//printf ("%d %d %d %d\n", a, b, c, d);
+    if (((a==0 && b==1 && c==0 && d==0)+(a==0 && b==0 && c==0 && d==1)+(c==0)+(d==0))==1)
+	    {
+		  if (a==1)
+			  printf ("Car One is the best.\n");
+	      else if (b==1)
+			  printf ("Car Two is the best.\n");
+		  else if (c==1)
+			  printf ("Car Three is the best.\n");
+		  else
+			  printf ("Car Four is the best.\n");
+		
+		  if ((a==0 && b==1 && c==0 && d==0)==1)
+			  printf("Expert A is correct.\n");
+		  else if ((a==0 && b==0 && c==0 && d==1)==1)
+			  printf("Expert B is correct.\n");
+		  else if ((c==0)==1)
+			  printf("Expert C is correct.\n");
+		  else
+			  printf("Expert D is correct.\n");
+	    }
+    {
+      int temp;
+	    temp=a;
+	    a=b;
+    	b=c;
+	   c=d;
+   	  d=temp;
+    }
+	}
+	return 0;    
+}
+/*Sample
+Car Three is the best.
+Expert D is correct.
+*/
+
+
+/*
+Author: Sharon Cao    Date: 10/05/2019
+
+Description:
+5. Given a CT scanning image file saved as 2-dementional array, each element in array
+denotes one cell with different value from 0 to 255. Assuming that malignant cell’s
+value is less 50 than around 4 cells (up, down, left, right), and the cell on the matrix
+edge will NOT be detected, write a program to calculate and print number of malignant
+cells
+Output
+Enter size of row & column: 4 4
+Enter each element:
+70 70 70 70
+70 10 70 70
+70 70 20 70
+70 70 70 70
+Result of malignant cell detection: 2
+*/
+
+#include <stdio.h>
+
+int main ()
+{
+  int row, column;
+  printf("Enter size of row & column: ");
+  scanf("%d%d", &row, &column);
+
+  printf("Enter each element: \n");
+  int a[row][column];
+  for (int i=0; i<row; i++)
+  {
+      for (int j=0; j<column; j++)
+      {
+          scanf("%d", &a[i][j]);
+      }
+  }
+
+  int counter=0;
+  int bar=a[0][0]-50;
+  for (int i=1; i<row-1; i++)
+  {
+      for (int j=1; j<column-1; j++)
+      {
+          if (a[i][j]<=bar)
+          {
+              counter+=1;
+          }
+      }
+  }
+
+  printf("Result of malignant cell detection: %d", counter);
+
+  return 0;
+}
+
+/*Sample
+Enter size of row & column: 4 4
+Enter each element:
+70 70 70 70
+70 10 70 70
+70 70 20 70
+70 70 70 70
+Result of malignant cell detection: 2
+Process returned 0 (0x0)   execution time : 21.815 s
+Press any key to continue.
+*/
+
+
+
+
+
