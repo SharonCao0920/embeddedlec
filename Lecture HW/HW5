@@ -1,0 +1,417 @@
+/*1. Write a program to identify the mountain local peak locations by coordinates
+within a given area m ¡Án (length ¡Áwidth), and the meaning of local peak is that
+area altitude is higher than that around it, that is, areas in the east, west, north and
+south
+Inputs from keyboard:
+Enter an area size, which is 2-D array size: 10 5
+Enter each local area altitude value as each element in this array:
+0 76 81 34 66
+1 13 58 4 40
+5 24 17 6 65
+13 13 76 3 20
+8 36 12 60 37
+42 53 87 10 65
+42 25 47 41 33
+71 69 94 24 12
+92 11 71 3 82
+91 0 20 95 44
+
+Outputs:
+Peak locations are:
+0 2
+0 4
+2 1
+2 4
+3 0
+3 2
+4 3
+5 2
+5 4
+7 2
+8 0
+8 4
+9 3
+Notice that question is to find index of bigger element around it,
+up/down/left/right in 2D array
+*/
+
+#include <stdio.h>
+
+int main()
+{
+     int r, c;
+     printf("Enter an area size, which is 2-D array size: ");
+     scanf("%d%d", &r, &c);
+
+     int a[r][c];
+     //enter elements
+     printf("Enter each local area altitude value as each element in this array: \n");
+     for (int i=0; i<r; i++)
+     {
+         for (int j=0; j<c; j++)
+         {
+             scanf("%d", &a[i][j]);
+         }
+     }
+     //print array to check
+     for (int i=0; i<r; i++)
+     {
+         for (int j=0; j<c; j++)
+         {
+             printf("%-5d", a[i][j]);
+         }
+         printf("\n");
+     }
+
+     for (int i=0; i<r; i++)
+     {
+         for (int j=0; j<c; j++)
+         {
+             if ((a[i][j]>=a[i][j+1]) || (j==c-1))
+            {
+                if ((j==0) || (a[i][j]>=a[i][j-1]))
+                {
+                   if ((i==0) || (a[i][j]>=a[i-1][j]))
+                   {
+                        if ((i==r-1) || (a[i][j]>=a[i+1][j]))
+                        {
+                                  printf ("%d %d\n", i, j);
+                        }
+                   }
+                }
+             }
+         }
+     }
+
+    return 0;
+}
+
+/* Sample
+Enter an area size, which is 2-D array size: 10 5
+Enter each local area altitude value as each element in this array:
+0 76 81 34 66
+1 13 58 4 40
+5 24 17 6 65
+13 13 76 3 20
+8 36 12 60 37
+42 53 87 10 65
+42 25 47 41 33
+71 69 94 24 12
+92 11 71 3 82
+91 0 20 95 44
+0    76   81   34   66
+1    13   58   4    40
+5    24   17   6    65
+13   13   76   3    20
+8    36   12   60   37
+42   53   87   10   65
+42   25   47   41   33
+71   69   94   24   12
+92   11   71   3    82
+91   0    20   95   44
+0 2
+0 4
+2 1
+2 4
+3 0
+3 2
+4 3
+5 2
+5 4
+7 2
+8 0
+8 4
+9 3
+
+Process returned 0 (0x0)   execution time : 6.227 s
+Press any key to continue.
+*/
+
+
+
+/*
+2. Find a program to reverse each word in a given sentence
+Inputs from keyboard:
+Enter a sentence like: hello world.
+Outputs:
+Reversed sentence: olleh .dlrow
+*/
+
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char str[10000];
+    int length;
+    printf("Enter a sentence: \n");
+    gets(str);
+    //printf("%s\n", str);
+    length = strlen(str);
+    //printf("%d\n", length);
+
+    //check how many words in str
+    int counter=1;
+    for (int i=0; i<length; i++)
+    {
+        if (str[i]==' ')
+        {
+            counter += 1;
+        }
+    }
+    //printf("%d\n", counter);
+
+    //reverse whole str
+    strrev (str);
+    //printf("%s\n", str);
+
+
+    //print the reversed individually
+    int space=0;
+    printf("Reversed sentence: \n");
+    for (int x=counter-1; x>=0; x--)
+    {
+        for (int i=0; i<length; i++)
+        {
+           if (str[i]==' ')
+           {
+               space+=1;
+           }
+           if (space==x)
+           {
+              if (str[i]!=' ')
+              {
+                  printf("%c", str[i]);
+              }
+           }
+        }
+        space=0;
+        printf(" ");
+    }
+
+    return 0;
+}
+
+/*Sample
+Enter a sentence:
+Welcome to the new class!
+Reversed sentence:
+emocleW ot eht wen !ssalc
+Process returned 0 (0x0)   execution time : 9.387 s
+Press any key to continue.
+
+Enter a sentence:
+Hello, world!
+Reversed sentence:
+,olleH !dlrow
+Process returned 0 (0x0)   execution time : 12.924 s
+Press any key to continue.
+*/
+
+
+/*
+Extra Credit
+3. Create a program to label unmatched parentheses in an expression from keyboard.
+Assuming that the expression consists of only parentheses and upper/lower case
+English letter from A-Z/a-z, if unmatched left-half parentheses is found, label it by
+¡°$¡± and unmatched right-half parentheses by ¡°?¡±
+Inputs from keyboard:
+Enter an expression like: ((ABCD(x)
+Outputs:
+Unmatched parentheses: $$
+Inputs from keyboard:
+Enter an expression like: )(rttyy())sss)(
+Outputs:
+Unmatched parentheses: ? ?$
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int top = -1;
+char stack[1000];
+
+
+
+int main()
+{
+    int length;
+	char str[100];
+	printf("Enter an expression like:\n");
+	gets(str);
+	length = strlen(str);
+
+	for (int i = 0; i<length ;i++)
+	{
+		if (str[i] != '(' || str[i]!=')')
+		{
+			printf(" ");
+		}
+		else if (str[i] == '(')
+		{
+			push(str[i]);
+		}
+	}
+
+	find_top();
+}
+
+// to push elements in stack
+void push(char a)
+{
+	stack[top] = a;
+	top++;
+}
+
+// to pop elements from stack
+void pop()
+{
+	if (top == -1)
+	{
+		printf("!");
+	}
+	else
+	{
+		top--;
+	}
+}
+
+// to find top element of stack
+void find_top()
+{
+	if (top == -1)
+		printf("\nexpression is valid\n");
+	else
+		printf("\nexpression is invalid\n");
+}
+
+
+/*
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int top = -1;
+char stack[100];
+
+// function prototypes
+void push(char);
+void pop();
+void find_top();
+
+void main()
+{
+	int i;
+	char a[100];
+	printf("enter expression\n");
+	scanf("%s", &a);
+	for (i = 0; a[i] != '\0';i++)
+	{
+		if (a[i] == '(')
+		{
+			push(a[i]);
+		}
+		else if (a[i] == ')')
+		{
+			pop();
+		}
+	}
+
+	find_top();
+}
+
+// to push elements in stack
+void push(char a)
+{
+	stack[top] = a;
+	top++;
+}
+
+// to pop elements from stack
+void pop()
+{
+	if (top == -1)
+	{
+		printf("expression is invalid\n");
+		exit(0);
+	}
+	else
+	{
+		top--;
+	}
+}
+
+// to find top element of stack
+void find_top()
+{
+	if (top == -1)
+		printf("\nexpression is valid\n");
+	else
+		printf("\nexpression is invalid\n");
+}
+*/
+
+/*
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+   char str[1000];
+   gets(str);
+   int length;
+   length=strlen(str);
+   //printf("%d\n", length);
+
+   int c1=0, c2=0;
+   for (int i=0; i<length; i++)
+   {
+       if (str[i]=='(')
+       {
+           c1 += 1;
+       }
+       if (str[i]==')')
+       {
+           c2 += 1;
+       }
+   }
+   //printf("%d %d", c1, c2);
+
+
+}
+
+
+*/
+
+
+/*
+4. (Bonus) You are given two pots labeled 1 and 2, having the volume
+of A and B liters respectively. The only following operations can be performed:
+- FULL(i) full the pot i (1 ¡Ü i ¡Ü 2) from the tap;
+- DROP(i) empty the pot i to the drain;
+- POUR(i,j) pour from pot i to pot j; after this operation either the pot j is full
+(and there may be some water left in the pot i), or the pot i is empty (and all its
+contents have been moved to the pot j).
+Write a program to find the shortest possible sequence of these operations that will
+yield exactly C liters of water in one of the two pots.
+Inputs:
+On the input line are the numbers A, B, and C. These are all integers in the range
+from 1 to 100 and C ¡Ü max (A, B), such as following
+Enter capacities in liter for each pot1 & pot2, and final required liter in any of two pots after several operations: 3 5 4
+Outputs:
+The first line of the output must contain the number of total operations K to meet
+required capacity in any one of two pots. The following K lines must describe each
+operation. If the required result can¡¯t be achieved, the first output line must show
+the word ¡®impossible¡¯.
+6
+FULL(2)
+POUR(2,1)
+DROP(1)
+POUR(2,1)
+FILL(2)
+POUR(2,1)
+*/
+
+
+
