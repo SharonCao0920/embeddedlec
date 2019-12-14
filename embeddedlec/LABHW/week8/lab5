@@ -1,0 +1,388 @@
+/*
+Q2:
+Display “you did good job” in LCD by left shifting from right
+*/
+#include<reg52.h>
+#define uchar unsigned char
+#define uint unsigned int
+//LCD connected to P1
+uchar code table[]="hi! you did a good job!";
+sbit lcdEN=P2^2; 
+sbit lcdRW=P2^1;
+sbit lcdRS=P2^0;
+uchar num;
+int s = (sizeof(table)/sizeof(uchar))-1;
+
+
+void delay(uchar z)
+{
+	uchar x,y;
+	for(x=z;x>0;x--)
+	for(y=415;y>0;y--);
+}
+void writeCmd(uchar cmd)
+{
+	lcdRS=0; 
+	P1=cmd; 
+	delay(8);
+	lcdEN=1; 
+	delay(6);
+	lcdEN=0;
+}
+void writeData(uchar D)
+{
+	lcdRS=1; 
+	P1=D;
+	delay(8);
+	lcdEN=1;
+	delay(6);
+	lcdEN=0;
+}
+void init()
+{
+	lcdEN=0; 
+	writeCmd(0x38); //8 bits, 2 lines 5x7matrix display mode
+	writeCmd(0x0c); //Switch display on, cursor off, no blinking
+	writeCmd(0x06); //Memory index increase, Cursor -> right, Screen-> not change
+	writeCmd(0x01); //Clear screen
+}
+void main()
+{
+	lcdRW=0; //write mode
+	init();
+
+	while(1) {
+	writeCmd(0x80); //Set 1st address
+
+	for(num=0;num<s;num++)
+	{
+		writeData(table[num]);
+		delay(80);
+	}
+	
+	writeCmd(0x07);
+	
+ }
+	
+}
+
+/*
+Q3:
+Read keypad and display on LCD.
+*/
+#include <REG52.H> 
+#include <intrins.h>
+#define uint unsigned int
+#define uchar unsigned char 
+//Keypad will connect to P2.0-P2.7 
+//LCD connected to P1
+sbit lcdRS=P3^2;
+sbit lcdRW=P3^3;
+sbit lcdEN=P3^4;
+
+//Delay function declaration
+void delay(uint z) 
+{  
+    uint x, y;
+    for (x = z; x > 0; x--) 
+	{
+        for (y = 415; y > 0; y--);
+    }
+}
+
+void writeCmd(uchar cmd)
+{
+    lcdRS=0; 
+    P1=cmd; 
+    delay(8);
+    lcdEN=1; 
+    delay(6);
+    lcdEN=0;
+}
+void writeData(uchar D)
+{
+    lcdRS=1; //High for display data write-in
+    P1=D;
+    delay(8);
+    lcdEN=1;
+    delay(6);
+    lcdEN=0;
+}
+void init()
+{
+    lcdEN=0;
+    writeCmd(0x38); //8 bits, 2 lines 5x7matrix display mode
+    writeCmd(0x0c); //Switch display on, cursor off, no blinking
+    writeCmd(0x06); //Cursor -> right, Screen-> not change
+    writeCmd(0x01); //Clear screen
+}
+void main() {
+    uchar data; //Read in P2 data 
+		lcdRW=0; //Set to write mode
+    init();
+     //Switch off 7 segment Bit1 
+    while (1) {
+        /*----------------Scan 1st line------------------------------------*/
+        P2 = 0xFE; //Scan first line 
+        data = P2; //Read in P2 
+        data = data & 0xF0; //Set b3-b0 = 0 in data 
+        if (data == 0x70) //Press Key1 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Check again data=data&0xF0; 
+            if (data == 0x70) {
+                while ((P2 & 0xF0) == 0x70); //Wait for switch release 
+                writeData('1'); //Display Key1 
+                delay(8);
+            }
+        }
+        if (data == 0xB0) //Press Key5 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Check again 
+            data = data & 0xF0;
+            if (data == 0xB0) {
+                while ((P2 & 0xF0) == 0xB0); //Wait for switch release 
+                writeData('5'); //Display Key5 
+                delay(8);
+            }
+        }
+        if (data == 0xD0) //Press Key9 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Check again 
+            data = data & 0xF0;
+            if (data == 0xD0) {
+                while ((P2 & 0xF0) == 0xD0); //Wait for switch release 
+                writeData('9'); //Display Key9 
+                delay(8);
+            }
+        }
+        if (data == 0xE0) //Press Key C 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Check again 
+            data = data & 0xF0;
+            if (data == 0xE0) {
+                while ((P2 & 0xF0) == 0xE0); //Wait for switch release 
+                writeData('c'); //Display Key C 
+                delay(8);
+            }
+        }
+        /*----------------Scan 2nd line------------------------------------*/
+        P2 = 0xFD; //Scan 2nd line 
+        data = P2; //Read in P2 
+        data = data & 0xF0; //Set b3-b0 = 0 in data 
+        if (data == 0x70) //Press Key2 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Check again 
+            data = data & 0xF0;
+            if (data == 0x70) {
+                while ((P2 & 0xF0) == 0x70); //Wait for switch release 
+                writeData('2'); //Display Key2 
+                delay(8);
+            }
+        }
+        if (data == 0xB0) //Press Key6 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Check again 
+            data = data & 0xF0;
+            if (data == 0xB0) {
+                while ((P2 & 0xF0) == 0xB0); //Wait for switch release 
+                writeData('6'); //Display Key6 
+                delay(8);
+            }
+        }
+        if (data == 0xD0) //Press Key 0 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Check again 
+            data = data & 0xF0;
+            if (data == 0xD0) {
+                while ((P2 & 0xF0) == 0xD0); //Wait for switch release 
+                writeData('0'); //Display Key 0 
+                delay(5);
+            }
+        }
+        if (data == 0xE0) //Press Key d 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Check again 
+            data = data & 0xF0;
+            if (data == 0xE0) {
+                while ((P2 & 0xF0) == 0xE0); //Wait for switch release 
+                writeData('d'); //Display Key d 
+                delay(8);
+            }
+        }
+        /*----------------Scan 3rd line------------------------------------*/
+        P2 = 0xFB; //Scan 3rd line 
+        data = P2; //Read in P2 
+        data = data & 0xF0; //Set b3-b0 = 0 in data 
+        if (data == 0x70) //Press Key 3 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Read in P2
+            data = data & 0xF0;
+            if (data == 0x70) {
+                while ((P2 & 0xF0) == 0x70); //Wait for switch release 
+                writeData('3'); //Display Key 3 
+                delay(8);
+            }
+        }
+        if (data == 0xB0) //Press Key 7 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Read in P2 
+            data = data & 0xF0;
+            if (data == 0xB0) {
+                while ((P2 & 0xF0) == 0xB0); //Wait for switch release 
+                writeData('7'); //Display Key 7 
+                delay(8);
+            }
+        }
+        if (data == 0xD0) //Press Key A 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Read in P2 
+            data = data & 0xF0;
+            if (data == 0xD0) {
+                while ((P2 & 0xF0) == 0xD0); //Wait for switch release 
+                writeData('a'); //Display Key A 
+                delay(8);
+            }
+        }
+        if (data == 0xE0) //Press Key e 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Read in P2 
+            data = data & 0xF0;
+            if (data == 0xE0) {
+                while ((P2 & 0xF0) == 0xE0); //Wait for switch release 
+                writeData('e'); //Display Key e 
+                delay(8);
+            }
+        }
+        /*----------------Scan 4th line------------------------------------*/
+        P2 = 0xF7; //Scan 4th line 
+        data = P2; //Read in P2 
+        data = data & 0xF0; //Set b3-b0 = 0 in data 
+        if (data == 0x70) //Press Key 4 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Read in P2 
+            data = data & 0xF0;
+            if (data == 0x70) {
+                while ((P2 & 0xF0) == 0x70); //Wait for switch release 
+								writeData('4'); //Display Key 4 
+                delay(8);
+            }
+        }
+        if (data == 0xB0) //Press Key 8 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Read in P2 
+            data = data & 0xF0;
+            if (data == 0xB0) {
+                while ((P2 & 0xF0) == 0xB0); //Wait for switch release 
+                writeData('8'); //Display Key 8 
+                delay(8);
+            }
+        }
+        if (data == 0xD0) //Press Key b 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Read in P2 
+            data = data & 0xF0;
+            if (data == 0xD0) {
+                while ((P2 & 0xF0) == 0xD0); //Wait for switch release 
+                writeData('b'); //Display Key b 
+                delay(8);
+            }
+        }
+        if (data == 0xE0) //Press Key e 
+        {
+            delay(20); //Delay 20ms to debounce 
+            data = P2; //Read in P2 
+            data = data & 0xF0;
+            if (data == 0xE0) {
+                while ((P2 & 0xF0) == 0xE0); //Wait for switch release
+								writeData('f'); //Display Key f 
+								writeCmd(0x14);
+                delay(8);
+            }
+        }
+				writeCmd(0x80);
+    }
+}
+
+
+/*
+Q5: 
+Generate the new font “€” in CGRAM and display on LCD.
+*/
+#include<reg52.h>
+#define uchar unsigned char
+#define uint unsigned int
+uchar code line1[]="User Def. Font";
+uchar i; //Loop index
+sbit lcdRS=P3^2;
+sbit lcdRW=P3^3; 
+sbit lcdEN=P3^4;
+uchar code NewFont[]={0x06,0x09,0x1E,0x08,0x1E,0x09,0x06,0x00}; //Display dataerature C 
+//Actually, there are 8 lines in each font in CGRAM, but only 7 lines are displayed
+void delay(uint z)
+{
+uint x,y;
+for(x=z;x>0;x--) 
+for(y=110;y>0;y--);
+}
+void writeCmd(uchar cmd)
+{
+lcdRS=0; //Low for command write-in 
+P1=cmd; //Generate input command from P1 to LDC's DB0-DB7 
+delay(5);
+lcdEN=1; //Generate logic high pulse
+delay(4);
+lcdEN=0;
+}
+void writeData(uchar D)
+{
+lcdRS=1; //High for display data write-in 
+P1=D;
+delay(5);
+lcdEN=1;
+delay(4);
+lcdEN=0;
+}
+void init()
+{
+lcdEN=0;
+writeCmd(0x38); //8 bits, 2 lines 5x7matrix display mode
+writeCmd(0x0c); //Switch display on, cursor off, no blinking 
+writeCmd(0x06); //Cursor -> right, Screen-> not change
+writeCmd(0x01); //Clear screen
+}
+void main()
+{
+lcdRW=0; //Set to write mode 
+init();
+for(i=0;i<14;i++) //Display "User Def. Font" in 1st line
+{ 
+writeCmd(0x80+i); //Set display data in 1st line
+writeData(line1[i]); 
+delay(5);
+}
+for(i=0; i<10; i++)
+{
+//writeCmd(0x40+i); //1st word address in CGRAM is 0x40;
+writeCmd(0x40+0x08+i); //2st word address in CGRAM is 0x48;
+writeData(NewFont[i]); //Each pixel line has one address
+}
+writeCmd(0x80+0x40); //Set display data in 2nd line
+//writeData(0x00); //Display new defined ascii code in CGRAM
+writeData(0x01); //Display new defined ascii code in 2nd word of CGRAM 
+while(1);
+}

@@ -1,0 +1,136 @@
+/*
+Q1:
+Design program to blink one LED and shift back and forth among 8 
+LEDs.
+*/
+#include <reg52.h> 
+#include <intrins.h> 
+#define uint unsigned int 
+
+//delay funtion
+void delay(uint z) 
+{
+	uint x,y;
+	for(x=z; x>0; x--) 
+	for(y=415; y>0; y--);
+}
+
+void main (void)
+{
+	// Switch on LED 1 
+	P1 = 0xFE; 
+	while (1)
+	{
+		//loop when left led is not on
+		while(P1 != 0x7F)  
+		{
+			delay(150); 
+			//shift towards left while right led is on
+			P1 = _crol_(P1,1); 
+		}
+    
+	    //loop when right led is not on
+		while(P1 != 0xFE)  
+		{
+			delay(150); 
+			//shift towards right while right led is on
+			P1 = _cror_(P1,1); 
+		}
+
+	}
+}
+
+
+/*
+Q2:
+Make 2 LEDs at the two ends of 8 LEDs on the board blink and move 
+in different directions and back.
+*/
+
+#include <reg52.h>        
+#include <intrins.h>      
+#define uint unsigned int 
+
+//Delay function declaration
+void delay(uint z)        
+{
+uint x,y;
+for(x=z; x>0; x--)        
+for(y=415; y>0; y--);
+}
+
+void main (void)
+{
+    //switch on leds of two ends
+    P1 = 0x7E; //0111_1110
+	while(1)
+	{
+		delay(150);
+		P1 = 0xBD;//1011_1101
+		
+		delay(150);
+		P1 = 0xDB; //1101_1011
+		
+		delay(150); 
+		P1 = 0xE7;//1110_0111
+		
+		delay(150);
+		P1 = 0xE7;//1110_0111
+		
+		delay(150);
+		P1 = 0xDB; //1101_1011
+
+        delay(150);
+		P1 = 0xBD;//1011_1101
+	
+		delay(15);
+		P1 = 0x7E; //0111_1110
+	
+	}
+}
+
+
+
+
+/*
+Make 2 LEDs in the center blink in different directions and move 
+back.
+*/
+#include <reg52.h> 
+#include <intrins.h> 
+#define uint unsigned int 
+
+//delay function
+void delay(uint z) 
+{
+	uint x,y;
+	for(x=z; x>0; x--) 
+	for(y=415; y>0; y--);
+}
+
+void main (void)
+{
+    //switch on two leds in the middle
+    P1 = 0xE7; //1110_0111
+	while(1)
+	{
+		delay(150);
+		P1 = 0xDB;//1101_1011
+		
+		delay(150);
+		P1 = 0xBD;//1011_1101
+
+		delay(150);
+		P1 = 0x7E;//0111_1110
+	  
+		delay(150);
+		P1 = 0xBD;//1011_1101
+		
+		delay(150);
+		P1 = 0xDB;//1101_1011
+	
+		delay(15);
+		P1 = 0xE7;//1110_0111
+	
+	}
+}

@@ -1,0 +1,1334 @@
+/*
+Q1:
+Display "Hi You did good job" word by word, and each word in one frame.
+*/
+# include <reg52.h> 
+#define uint unsigned int
+#define uchar unsigned char
+// seven segment display pin a~g is connected to P1 of 8051
+// Bit D1~D4 is conncted to pin P2^0~3
+
+// Delay Function
+void delay(uint z) 
+{
+ uint x, y;
+ for(x=z; x>0; x--)
+	for(y=415; y>0; y--);
+}
+
+//Switch Off D1-D4
+void bitOff(uchar D) 
+{
+  if(D==1) P2=0xFF;
+  if(D==2) P2=0xFF;
+  if(D==3) P2=0xFF;
+  if(D==4) P2=0xFF;
+}
+
+// Declaration Of seven segment function
+void sevenSegmentNum(uchar num) 
+{
+ switch(num)
+ {
+	 //Case for 0
+	 case 0: 
+     {
+	    P1=0xC0;
+	    break;
+     }
+     //Case for 1
+     case 1: 
+     {
+	    P1=0xF9;
+	    break;
+     } 
+	 //Case for 2
+     case 2: 
+     {
+	   P1=0xA4;
+	   break;
+     }
+	 //Case for 3
+     case 3: 
+     {
+	   P1=0xB0;
+	   break;
+     }
+	 //Case for 4
+     case 4:	
+     {
+	    P1=0x99;
+	    break;
+     }
+	 //Case for 5
+     case 5: 
+     {
+	    P1=0x92;
+	    break;
+     }
+	 //Case for 6
+     case 6: 
+     {
+	    P1=0x82;
+	    break;
+     }
+	 //Case for 7
+     case 7: 
+     {
+	    P1=0xF8;
+	    break;
+     }
+	 //Case for 8
+     case 8: 
+     {
+	   P1=0x80;
+       break;
+     }
+	 //Case for 9
+     case 9: 
+     {
+	   P1=0x98;
+	   break;
+     }
+  }
+
+}
+
+void sevenSegmentChar(uchar alph)
+{
+ switch(alph)
+ {
+case 0: //Case for a
+ {
+P1=0xA0;
+break;
+}
+case 1: //Case for b
+ {
+P1=0x83;
+break;
+}
+case 2: //Case for c
+ {
+P1=0xA7;
+break;
+}
+case 3: //Case for d
+ {
+P1=0xA1;
+break;
+}
+case 4: //Case for e
+ {
+P1=0x86;
+break;
+}
+case 5: //Case for f
+ {
+P1=0x8E;
+break;
+}
+case 6: //Case for g
+
+{
+P1=0x90;
+break;
+}
+case 7: //Case for h
+
+{
+P1=0x8B;
+break;
+}
+case 8: //Case for i
+
+{
+P1=0xFB;
+break;
+}
+case 9: //Case for j
+
+{
+P1=0xF1;
+break;
+}
+case 10: //Case for k
+
+{
+P1=0x8F;
+break;
+}
+case 11: //Case for l
+
+{
+P1=0xC7;
+break;
+}
+case 12: //Case for m
+
+{
+P1=0xAA;
+break;
+}
+case 13: //Case for n
+
+{
+P1=0xAB;
+break;
+}
+case 14: //Case for o
+
+{
+P1=0xA3;
+break;
+}
+case 15: //Case for p
+
+{
+P1=0x8C;
+break;
+}
+case 16: //Case for q
+
+{
+P1=0x9A;
+break;
+}
+case 17: //Case for r
+
+{
+P1=0xAF;
+break;
+}
+case 18: //Case for s
+
+{
+P1=0x92;
+break;
+}
+case 19: //Case for t
+
+{
+P1=0x87;
+break;
+}
+case 20: //Case for u
+
+{
+P1=0xE3;
+break;
+}
+case 21: //Case for v
+
+{
+P1=0xC1;
+break;
+}
+case 22: //Case for w
+ {
+P1=0x81;
+break;
+}
+case 23: //Case for x
+ {
+P1=0xB9;
+break;
+}
+case 24: //Case for y
+ {
+P1=0x8D;
+break;
+}
+case 25: //Case for z
+ {
+P1=0xB3;
+break;
+}
+ }
+}
+void bitSel(uchar D) //Select D1-D4
+{
+switch(D)
+{
+case 1: //Select D1
+{
+P2=0xFE;
+break;
+}
+case 2: //Select D2
+{
+P2=0xFD;
+break;
+}
+case 3: //Select D3
+{
+P2=0xFB;
+break;
+}
+case 4: //Select D4
+{
+P2=0xF7;
+break;
+}
+}
+}
+
+void main(uint i)
+{		
+		for(i = 0; i < counter; i++)
+	  {
+			// to print "hi"
+			bitSel(1);
+			sevenSegmentChar(7); //h
+			delay(1);
+			
+			bitSel(2); 
+			sevenSegmentChar(8);//i
+			delay(1);
+	  }
+	
+	    // to print "you"
+		for(i = 0; i < counter; i++)
+		{
+			
+			bitSel(1); 
+			sevenSegmentChar(24); //y
+			delay(1);
+			
+			bitSel(2); 
+			sevenSegmentChar(14);//o
+			delay(1);
+			
+			bitSel(3); 
+			sevenSegmentChar(20);//u
+			delay(1);
+		}
+
+		
+		// to print "did"
+		for(i = 0; i < counter; i++)
+		{
+			bitSel(1); 
+			sevenSegmentChar(3); //d
+			delay(1);
+			
+			bitSel(2); 
+			sevenSegmentChar(8);//i
+			delay(1);
+			
+			bitSel(3); 
+			sevenSegmentChar(3);//d
+			delay(1);
+		}
+		
+		// to print "good'
+		for(i = 0; i < counter; i++)
+		{
+			bitSel(1); 
+			sevenSegmentChar(6); //g
+			delay(1);
+			
+			bitSel(2); 
+			sevenSegmentChar(14);//o
+			delay(1);
+			
+			bitSel(3); 
+			sevenSegmentChar(14);//o
+			delay(1);
+			
+			bitSel(4); 
+			sevenSegmentChar(3);//d
+			delay(1);
+			
+		}
+		
+		//to print "job"
+		for(i = 0; i < counter; i++)
+		{
+			bitSel(1); 
+			sevenSegmentChar(9);//j
+			delay(1);
+			
+			bitSel(2); 
+			sevenSegmentChar(14);//o
+			delay(1);
+			
+			bitSel(3); 
+			sevenSegmentChar(1);//b
+			delay(1);
+			
+		}
+	
+}
+
+
+/*
+Q2:
+Display "Hi You did good job" from the right to shift in
+*/
+# include <reg52.h> 
+#define uint unsigned int
+#define uchar unsigned char
+// seven segment display pin a~g is connected to P1 of 8051
+// Bit D1~D4 is conncted to pin P2^0~3
+
+// Delay Function
+void delay(uint z) 
+{
+ uint x, y;
+ for(x=z; x>0; x--)
+	for(y=415; y>0; y--);
+}
+
+//Switch Off D1-D4
+void bitOff(uchar D) 
+{
+  if(D==1) P2=0xFF;
+  if(D==2) P2=0xFF;
+  if(D==3) P2=0xFF;
+  if(D==4) P2=0xFF;
+}
+
+// Declaration Of seven segment function
+void sevenSegmentNum(uchar num) 
+{
+ switch(num)
+ {
+	 //Case for 0
+	 case 0: 
+     {
+	    P1=0xC0;
+	    break;
+     }
+     //Case for 1
+     case 1: 
+     {
+	    P1=0xF9;
+	    break;
+     } 
+	 //Case for 2
+     case 2: 
+     {
+	   P1=0xA4;
+	   break;
+     }
+	 //Case for 3
+     case 3: 
+     {
+	   P1=0xB0;
+	   break;
+     }
+	 //Case for 4
+     case 4:	
+     {
+	    P1=0x99;
+	    break;
+     }
+	 //Case for 5
+     case 5: 
+     {
+	    P1=0x92;
+	    break;
+     }
+	 //Case for 6
+     case 6: 
+     {
+	    P1=0x82;
+	    break;
+     }
+	 //Case for 7
+     case 7: 
+     {
+	    P1=0xF8;
+	    break;
+     }
+	 //Case for 8
+     case 8: 
+     {
+	   P1=0x80;
+       break;
+     }
+	 //Case for 9
+     case 9: 
+     {
+	   P1=0x98;
+	   break;
+     }
+  }
+
+}
+
+void sevenSegmentChar(uchar alph)
+{
+ switch(alph)
+ {
+case 0: //Case for a
+ {
+P1=0xA0;
+break;
+}
+case 1: //Case for b
+ {
+P1=0x83;
+break;
+}
+case 2: //Case for c
+ {
+P1=0xA7;
+break;
+}
+case 3: //Case for d
+ {
+P1=0xA1;
+break;
+}
+case 4: //Case for e
+ {
+P1=0x86;
+break;
+}
+case 5: //Case for f
+ {
+P1=0x8E;
+break;
+}
+case 6: //Case for g
+
+{
+P1=0x90;
+break;
+}
+case 7: //Case for h
+
+{
+P1=0x8B;
+break;
+}
+case 8: //Case for i
+
+{
+P1=0xFB;
+break;
+}
+case 9: //Case for j
+
+{
+P1=0xF1;
+break;
+}
+case 10: //Case for k
+
+{
+P1=0x8F;
+break;
+}
+case 11: //Case for l
+
+{
+P1=0xC7;
+break;
+}
+case 12: //Case for m
+
+{
+P1=0xAA;
+break;
+}
+case 13: //Case for n
+
+{
+P1=0xAB;
+break;
+}
+case 14: //Case for o
+
+{
+P1=0xA3;
+break;
+}
+case 15: //Case for p
+
+{
+P1=0x8C;
+break;
+}
+case 16: //Case for q
+
+{
+P1=0x9A;
+break;
+}
+case 17: //Case for r
+
+{
+P1=0xAF;
+break;
+}
+case 18: //Case for s
+
+{
+P1=0x92;
+break;
+}
+case 19: //Case for t
+
+{
+P1=0x87;
+break;
+}
+case 20: //Case for u
+
+{
+P1=0xE3;
+break;
+}
+case 21: //Case for v
+
+{
+P1=0xC1;
+break;
+}
+case 22: //Case for w
+ {
+P1=0x81;
+break;
+}
+case 23: //Case for x
+ {
+P1=0xB9;
+break;
+}
+case 24: //Case for y
+ {
+P1=0x8D;
+break;
+}
+case 25: //Case for z
+ {
+P1=0xB3;
+break;
+}
+ }
+}
+void bitSel(uchar D) //Select D1-D4
+{
+switch(D)
+{
+case 1: //Select D1
+{
+P2=0xFE;
+break;
+}
+case 2: //Select D2
+{
+P2=0xFD;
+break;
+}
+case 3: //Select D3
+{
+P2=0xFB;
+break;
+}
+case 4: //Select D4
+{
+P2=0xF7;
+break;
+}
+}
+}
+
+void main(uint i)
+{
+	// h 
+	bitSel(4);
+	sevenSegmentChar(7); 
+	delay(500);
+	
+	// to print "hi"
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(3);
+		sevenSegmentChar(7);//h
+		delay(1);
+		
+		bitSel(4);
+		sevenSegmentChar(8);//i
+		delay(1);
+	}
+		
+	// to print "hi "
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(2);
+		sevenSegmentChar(7);//h
+		delay(1);
+		
+		bitSel(3);
+		sevenSegmentChar(8);//i
+		delay(1);
+		
+		bitSel(4);
+		bitOff(4);//" "
+		delay(1);
+	}
+	
+	
+	// to print "hi y"
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(1);
+		sevenSegmentChar(7);
+		delay(1);
+		
+		bitSel(2);
+		sevenSegmentChar(8);
+		delay(1);
+		
+		bitSel(3);
+		bitOff(3);
+		delay(1);
+		
+		bitSel(4);
+		sevenSegmentChar(24); 
+		delay(1);
+	}
+	
+	
+	// to print "i yo"
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(1);
+		sevenSegmentChar(8);//i
+		delay(1);
+		
+		bitSel(2);
+		bitOff(2);  //" "
+		delay(1);
+		
+		bitSel(3);
+		sevenSegmentChar(24);//y
+		delay(1);
+		
+		bitSel(4);
+		sevenSegmentChar(14);//o
+		delay(1);
+	}
+	
+	// to print " you"
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(1);
+		bitOff(1);//" "
+		delay(1);
+		
+		bitSel(2);
+		sevenSegmentChar(24);//y
+		delay(1);
+		
+		bitSel(3);
+		sevenSegmentChar(14);//o
+		delay(1);
+		
+		bitSel(4);
+		sevenSegmentChar(20);//u
+		delay(1);
+	}
+
+
+
+	// to print "you "
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(1);
+		sevenSegmentChar(24);//y
+		delay(1);
+		
+		bitSel(2);
+		sevenSegmentChar(14);//o
+		delay(1);
+		
+		bitSel(3);
+		sevenSegmentChar(20);//u
+		delay(1);
+		
+		bitSel(4);
+		bitOff(4);//" "
+		delay(1);
+	}
+	
+	
+	// to print "ou d"
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(1);
+		sevenSegmentChar(14);//o
+		delay(1);
+		
+		bitSel(2);
+		sevenSegmentChar(20);//u
+		delay(1);
+		
+		bitSel(3);
+		bitOff(3);//" "
+		delay(1);
+		
+		bitSel(4);
+		sevenSegmentChar(3);//d
+		delay(1);	
+	}
+	
+	
+	// to print "u di"
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(1);
+		sevenSegmentChar(20);//u
+		delay(1);
+		
+		bitSel(2);
+		bitOff(2);//" "
+		delay(1);
+		
+		bitSel(3);
+		sevenSegmentChar(3);//d
+		delay(1);
+		
+		bitSel(4);
+		sevenSegmentChar(8);//i
+		delay(1);	
+	}
+	
+	
+	// to print " did"
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(1);
+		bitOff(1);//" "
+		delay(1);
+		
+		bitSel(2);
+		sevenSegmentChar(3);//d
+		delay(1);
+		
+		bitSel(3);
+		sevenSegmentChar(8);//i
+		delay(1);
+		
+		bitSel(4);
+		sevenSegmentChar(3);//d
+		delay(1);		
+	}
+	
+	
+	// to print "did "
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(1);
+		sevenSegmentChar(3);//d
+		delay(1);
+		
+		bitSel(2);
+		sevenSegmentChar(8);//i
+		delay(1);
+		
+		bitSel(3);
+		sevenSegmentChar(3);//d
+		delay(1);
+		
+		bitSel(4);
+		bitOff(4);//" "
+		delay(1);		
+	}
+	
+	
+	// to print "id g"
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(1);
+		sevenSegmentChar(8);//i
+		delay(1);
+		
+		bitSel(2);
+		sevenSegmentChar(3);//d
+		delay(1);
+		
+		bitSel(3);
+		bitOff(3);//" "
+		delay(1);	
+		
+		bitSel(4);
+		sevenSegmentChar(6);//g
+		delay(1);		
+	}
+	
+	
+	// to print "d go"
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(1);
+		sevenSegmentChar(3);//d
+		delay(1);
+		
+		bitSel(2);
+		bitOff(2);//" "
+		delay(1);	
+		
+		bitSel(3);
+		sevenSegmentChar(6);//g
+		delay(1);	
+		
+		bitSel(4);
+		sevenSegmentChar(14);//o
+		delay(1);				
+	}
+	
+	// to print " goo"
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(1);
+		bitOff(1);//" "
+		delay(1);	
+		
+		bitSel(2);
+		sevenSegmentChar(6);//g
+		delay(1);	
+		
+		bitSel(3);
+		sevenSegmentChar(14);//o
+		delay(1);	
+		
+		bitSel(4);
+		sevenSegmentChar(14);//o
+		delay(1);			
+	}
+	
+	
+	// to print "good"
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(1);
+		sevenSegmentChar(6);//g
+		delay(1);	
+		
+		bitSel(2);
+		sevenSegmentChar(14);//o
+		delay(1);	
+		
+		bitSel(3);
+		sevenSegmentChar(14);//o
+		delay(1);	
+		
+		bitSel(4);
+		sevenSegmentChar(3);//d
+		delay(1);		
+	}
+	
+	
+	// to print "ood "
+	for(i = 0; i < counter; i++)
+	{
+		bitSel(1);
+		sevenSegmentChar(14);//o
+		delay(1);	
+		
+		bitSel(2);
+		sevenSegmentChar(14);//o
+		delay(1);	
+		
+		bitSel(3);
+		sevenSegmentChar(3);//d
+		delay(1);	
+		
+		bitSel(4);
+		bitOff(4);//" "
+		delay(1);		
+	}
+	
+	
+	// to print "od j"
+	for(i = 0; i < counter; i++)
+	{	
+		bitSel(1);
+		sevenSegmentChar(14);//o
+		delay(1);	
+		
+		bitSel(2);
+		sevenSegmentChar(3);//d
+		delay(1);	
+		
+		bitSel(3);
+		bitOff(3);//" "
+		delay(1);	
+		
+		bitSel(4);
+		sevenSegmentChar(9);//j
+		delay(1);
+	}
+	
+	
+	// to print "d jo"
+	for(i = 0; i < counter; i++)
+	{	
+		bitSel(1);
+		sevenSegmentChar(3);//d
+		delay(1);	
+		
+		bitSel(2);
+		bitOff(2);//" "
+		delay(1);	
+		
+		bitSel(3);
+		sevenSegmentChar(9);//j
+		delay(1);
+		
+		bitSel(4);
+		sevenSegmentChar(14);//o
+		delay(1);
+	}
+	
+	
+	// to print " job"
+	for(i = 0; i < counter; i++)
+	{	
+		bitSel(1);
+		bitOff(2);//" "
+		delay(1);	
+		
+		bitSel(2);
+		sevenSegmentChar(9);//j
+		delay(1);
+		
+		bitSel(3);
+		sevenSegmentChar(14);//o
+		delay(1);
+		
+		bitSel(4);
+		sevenSegmentChar(1);//b
+		delay(1);
+	}
+
+	
+}
+
+
+
+
+/*
+Q3:
+Display from 0000 to 9999 after certain time delay to increase one, such as "0000 -> 
+0001-> 0002-> ... ...->9999" on four 7-segment LEDs.
+*/
+# include <reg52.h> 
+#define uint unsigned int
+#define uchar unsigned char
+// seven segment display pin a~g is connected to P1 of 8051
+// Bit D1~D4 is conncted to pin P2^0~3
+
+// Delay Function
+void delay(uint z) 
+{
+ uint x, y;
+ for(x=z; x>0; x--)
+	for(y=415; y>0; y--);
+}
+
+//Switch Off D1-D4
+void bitOff(uchar D) 
+{
+  if(D==1) P2=0xFF;
+  if(D==2) P2=0xFF;
+  if(D==3) P2=0xFF;
+  if(D==4) P2=0xFF;
+}
+
+// Declaration Of seven segment function
+void sevenSegmentNum(uchar num) 
+{
+ switch(num)
+ {
+	 //Case for 0
+	 case 0: 
+     {
+	    P1=0xC0;
+	    break;
+     }
+     //Case for 1
+     case 1: 
+     {
+	    P1=0xF9;
+	    break;
+     } 
+	 //Case for 2
+     case 2: 
+     {
+	   P1=0xA4;
+	   break;
+     }
+	 //Case for 3
+     case 3: 
+     {
+	   P1=0xB0;
+	   break;
+     }
+	 //Case for 4
+     case 4:	
+     {
+	    P1=0x99;
+	    break;
+     }
+	 //Case for 5
+     case 5: 
+     {
+	    P1=0x92;
+	    break;
+     }
+	 //Case for 6
+     case 6: 
+     {
+	    P1=0x82;
+	    break;
+     }
+	 //Case for 7
+     case 7: 
+     {
+	    P1=0xF8;
+	    break;
+     }
+	 //Case for 8
+     case 8: 
+     {
+	   P1=0x80;
+       break;
+     }
+	 //Case for 9
+     case 9: 
+     {
+	   P1=0x98;
+	   break;
+     }
+  }
+
+}
+
+void sevenSegmentChar(uchar alph)
+{
+ switch(alph)
+ {
+case 0: //Case for a
+ {
+P1=0xA0;
+break;
+}
+case 1: //Case for b
+ {
+P1=0x83;
+break;
+}
+case 2: //Case for c
+ {
+P1=0xA7;
+break;
+}
+case 3: //Case for d
+ {
+P1=0xA1;
+break;
+}
+case 4: //Case for e
+ {
+P1=0x86;
+break;
+}
+case 5: //Case for f
+ {
+P1=0x8E;
+break;
+}
+case 6: //Case for g
+
+{
+P1=0x90;
+break;
+}
+case 7: //Case for h
+
+{
+P1=0x8B;
+break;
+}
+case 8: //Case for i
+
+{
+P1=0xFB;
+break;
+}
+case 9: //Case for j
+
+{
+P1=0xF1;
+break;
+}
+case 10: //Case for k
+
+{
+P1=0x8F;
+break;
+}
+case 11: //Case for l
+
+{
+P1=0xC7;
+break;
+}
+case 12: //Case for m
+
+{
+P1=0xAA;
+break;
+}
+case 13: //Case for n
+
+{
+P1=0xAB;
+break;
+}
+case 14: //Case for o
+
+{
+P1=0xA3;
+break;
+}
+case 15: //Case for p
+
+{
+P1=0x8C;
+break;
+}
+case 16: //Case for q
+
+{
+P1=0x9A;
+break;
+}
+case 17: //Case for r
+
+{
+P1=0xAF;
+break;
+}
+case 18: //Case for s
+
+{
+P1=0x92;
+break;
+}
+case 19: //Case for t
+
+{
+P1=0x87;
+break;
+}
+case 20: //Case for u
+
+{
+P1=0xE3;
+break;
+}
+case 21: //Case for v
+
+{
+P1=0xC1;
+break;
+}
+case 22: //Case for w
+ {
+P1=0x81;
+break;
+}
+case 23: //Case for x
+ {
+P1=0xB9;
+break;
+}
+case 24: //Case for y
+ {
+P1=0x8D;
+break;
+}
+case 25: //Case for z
+ {
+P1=0xB3;
+break;
+}
+ }
+}
+void bitSel(uchar D) //Select D1-D4
+{
+switch(D)
+{
+case 1: //Select D1
+{
+P2=0xFE;
+break;
+}
+case 2: //Select D2
+{
+P2=0xFD;
+break;
+}
+case 3: //Select D3
+{
+P2=0xFB;
+break;
+}
+case 4: //Select D4
+{
+P2=0xF7;
+break;
+}
+}
+}
+
+void main()
+{
+	int i, j, x, y, z, repeat;
+	y = 0;
+	repeat = 1;
+	
+	for(i = 0; i < 10; i++)
+	{
+		for(j = 0; j < 10; j++)
+		{
+			for(x = 0; y < 10; x++)
+			{
+				for(z = 0; z < repeat; z++)
+				{
+					bitSel(1);
+					sevenSegmentNum(i);
+					delay(1);
+					
+					bitSel(2);
+					sevenSegmentNum(j);
+					delay(1);
+					
+					bitSel(3); 
+					sevenSegmentNum(y);
+					delay(1);
+					
+					bitSel(4);
+					sevenSegmentNum(x);
+					delay(1);
+				}
+				
+				if(x == 9)
+				{
+					// set j to -1 because of increment
+					x = -1;
+					y++;
+				}
+			}
+			y = 0;
+		}
+		j = 0;
+	}			
+}

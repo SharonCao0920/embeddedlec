@@ -1,0 +1,565 @@
+/*
+Q1: 
+Read an independent switch to control LEDs scrolling blinking on/off 
+*/
+#include <REG52.H> 
+#define uint unsigned int 
+#define uchar unsigned char
+#include <intrins.h>
+
+sbit SW1=P2^4; //connect switch 1 to pin 2^4
+//connect 8 leds to P1
+
+//Delay function declaration
+void delay(uint z) 
+{
+  uint x,y;
+  for(x=z; x>0; x--) 
+  for(y=415; y>0; y--);
+}
+
+void rotatation()
+{
+        delay(150); 
+        P1 = _cror_(P1,1); //shift right     
+}
+
+void main (void)
+{
+        uchar pressNum=0; //counter for pressing
+        //turn on first led on the left
+        P1 = 0x7F;
+        
+        while (1)
+        {
+                if(SW1==0)
+                {
+                        delay(15); 
+                        if(SW1==0)
+                        {
+                                while(!SW1); //release to bounce to next LED
+                                if(pressNum==0) rotatation();
+                                if(pressNum==1) rotatation(); 
+                                pressNum++;
+                                if(pressNum==2) pressNum=0; 
+                        }
+                }
+        }  
+}
+
+/*
+Q2:
+Design scanning dual keys pressing that you select in different row and 
+column on keypad and display a character defined by you for this pressing 
+on 7-Segment LEDs.
+*/
+#include <REG52.H> 
+#include <intrins.h>
+#define uint unsigned int 
+#define uchar unsigned char
+//Keypad will connect to P2.0-P2.7
+//7-Segment LED will connect to P1.0-P1.7
+//Bit control will connect to P3.3
+
+sbit buzz=P3^2; //buzzer connect to 3^2
+sbit SegLEDB1=P3^3;
+void delay(uint z) //Delay function declaration
+{
+uint x,y;
+for(x=z; x>0; x--)
+for(y=415; y>0; y--);
+}
+
+void sevenSegmentNum(uchar num) 
+{
+switch(num)
+ {
+ case 0: // Case for 0
+ {
+P1=0xC0;
+break;
+}
+ case 1: // Case for 1
+ {
+P1=0xF9;
+break;
+}
+ case 2: // Case for 2
+ {
+P1=0xA4;
+break;
+}
+ case 3: // Case for 3
+ {
+P1=0xB0;
+break;
+}
+case 4: // Case for 4
+ {
+P1=0x99;
+break;
+}
+case 5: // Case for 5
+ {
+P1=0x92;
+break;
+}
+case 6: // Case for 6
+ {
+P1=0x82;
+break;
+}
+case 7: // Case for 7
+ {
+P1=0xF8;
+break;
+}
+case 8: // Case for 8
+ {
+P1=0x80;
+break;
+}
+case 9: // Case for 9
+ {
+P1=0x98;
+break;
+}
+ }
+}
+void sevenSegmentChar(uchar alph)
+{
+switch(alph)
+{
+case 'a': // Case for a
+ {
+P1=0xA0;
+break;
+}
+case 'b': // Case for b
+ {
+P1=0x83;
+break;
+}
+case 'c': // Case for c
+ {
+P1=0xA7;
+break;
+}
+case 'd': // Case for d
+
+{
+P1=0xA1;
+break;
+}
+case 'e': // Case for e
+
+{
+P1=0x86;
+break;
+}
+case 'f': // Case for f
+
+{
+P1=0x8E;
+break;
+}
+case 'g': // Case for g
+
+{
+P1=0x90;
+break;
+}
+case 'h': // Case for h
+
+{
+P1=0x8B;
+break;
+}
+case 'i': // Case for i
+
+{
+P1=0xFB;
+break;
+}
+case 'j': // Case for j
+
+{
+P1=0xF1;
+break;
+}
+case 'k': // Case for k
+
+{
+P1=0x8F;
+break;
+}
+case 'l': // Case for l
+
+{
+P1=0xC7;
+break;
+}
+case 'm': // Case for m
+
+{
+P1=0xAA;
+break;
+}
+case 'n': // Case for n
+
+{
+P1=0xAB;
+break;
+}
+case 'o': // Case for o
+
+{
+P1=0xA3;
+break;
+}
+case 'p': // Case for p
+
+{
+P1=0x8C;
+break;
+}
+case 'q': // Case for q
+
+{
+P1=0x9A;
+break;
+}
+case 'r': // Case for r
+
+{
+P1=0xAF;
+break;
+}
+case 's': // Case for s
+
+{
+P1=0x92;
+break;
+}
+case 't': // Case for t
+
+{
+P1=0x87;
+break;
+}
+case 'u': // Case for u
+
+{
+P1=0xE3;
+break;
+}
+case 'v': // Case for v
+
+{
+P1=0xC1;
+break;
+}
+case 'w': // Case for w
+
+{
+P1=0x81;
+break;
+}
+case 'x': // Case for x
+
+{
+P1=0xB9;
+break;
+}
+case 'y': // Case for y
+ {
+P1=0x8D;
+break;
+}
+case 'z': // Case for z
+ {
+P1=0xB3;
+break;
+}
+ }
+}
+
+void main()
+{
+        uchar data; 
+        SegLEDB1=0; //Switch off
+        buzz=0; //Switch off 
+        while(1)
+        {
+        /*----------------Scan 1st line------------------------------------*/
+        P2=0xFE; //Scan first line
+        data=P2; //Read in P2
+        data=data&0xF0; //Set b3-b0 = 0 in data
+        if(data==0x70) //Press Key1
+        {
+                delay(15); 
+                data=P2; //Check again
+                data=data&0xF0;
+                if(data==0x70)
+                {
+                        while((P2&0xF0)==0x70); //Wait for switch release
+                        buzz=1;
+                        SegLEDB1=0;
+                        sevenSegmentNum(1); //Display K-1
+                        delay(1);
+                buzz=0;
+                }
+        }
+        if(data==0xB0) //Press Key5
+        {
+                delay(15); 
+                data=P2; //Check again
+                data=data&0xF0;
+                if(data==0xB0)
+                {
+                        while((P2&0xF0)==0xB0); //Wait for switch release
+                        buzz=1;
+                        sevenSegmentNum(5); //Display K-5
+                        delay(1);
+                        buzz=0;
+                }
+        }
+        if(data==0xD0) //Press Key9
+        {
+                delay(15); 
+                data=P2; //Check again
+                data=data&0xF0;
+                if(data==0xD0)
+                {
+                        while((P2&0xF0)==0xD0); //Wait for switch release
+                        buzz=1;
+                        sevenSegmentNum(9); //Display K-9
+                        delay(1);
+                        buzz=0;
+                }
+        }
+        if(data==0xE0) //Press Key C // 1110 0000
+        {
+                delay(15); 
+                data=P2; //Check again
+                data=data&0xF0;
+                if(data==0xE0)
+                {
+                        sevenSegmentChar('c');
+                        // if also pressing key 2
+                        P2=0xFD; //Scan 2nd line
+                        data=P2; //Read in P2
+                        data=data&0xF0; //Set b3-b0 = 0 in data
+                        while(data==0x70) //Press K-2
+                        {
+                                //sevenSegmentChar('t');
+                                delay(15); 
+                                data=P2; //Check again
+                                data=data&0xF0;
+                                if(data==0x70)
+                                {
+                                        sevenSegmentChar('t');
+                                }
+                        }
+                        if((P2&0xF0)==0x60)
+                        {
+                                while((P2&0xF0)==0x60);
+                                sevenSegmentChar('t');
+                        }
+                        else if((P2&0xF0)==0xE0)
+                        {
+                                while((P2&0xF0)==0xE0); //Wait for switch release
+                                buzz=1;
+                                sevenSegmentChar('c'); //Display K-C
+                                delay(1);
+                                buzz=0;
+                        }
+                }
+        }
+        /*----------------Scan 2nd line------------------------------------*/
+        P2=0xFD; //Scan 2nd line
+        data=P2; //Read in P2
+        data=data&0xF0; //Set b3-b0 = 0 in data
+        if(data==0x70) //Press Key2
+        {
+        delay(15); 
+        data=P2; //Check again
+        data=data&0xF0;
+        if(data==0x70)
+        {
+        while((P2&0xF0)==0x70); //Wait for switch release
+        buzz=1;
+        SegLEDB1=0;
+        sevenSegmentNum(2); //Display K-2
+        delay(1);
+        buzz=0;
+        }
+        }
+        if(data==0xB0) //Press K-6
+        {
+        delay(15); 
+        data=P2; //Check again
+        data=data&0xF0;
+        if(data==0xB0)
+        {
+        while((P2&0xF0)==0xB0); //Wait for switch release
+        buzz=1;
+        sevenSegmentNum(6); //Display K-6
+        delay(1);
+        buzz=0;
+        }
+        }
+        if(data==0xD0) //Press K-0
+        {
+        delay(15); 
+        data=P2; //Check again
+        data=data&0xF0;
+        if(data==0xD0)
+        {
+        while((P2&0xF0)==0xD0); //Wait for switch release
+        buzz=1;
+        sevenSegmentNum(0); //Display K-0
+        delay(1);
+        buzz=0;
+        }
+        }
+        if(data==0xE0) //Press Key d
+        {
+        delay(15); 
+        data=P2; //Check again
+        data=data&0xF0;
+        if(data==0xE0)
+        {
+        while((P2&0xF0)==0xE0); //Wait for switch release
+        buzz=1;
+        sevenSegmentChar('d'); //Display K-d
+        delay(1);
+        buzz=0;
+        }
+        }
+        /*----------------Scan 3rd line------------------------------------*/
+        P2=0xFB; //Scan 3rd line
+        data=P2; //Read in P2
+        data=data&0xF0; //Set b3-b0 = 0 in data
+        if(data==0x70) //Press K-3
+        {
+        delay(15); 
+        data=P2; //Read in P2
+        data=data&0xF0;
+        if(data==0x70)
+        {
+        while((P2&0xF0)==0x70); //Wait for switch release
+        buzz=1;
+        SegLEDB1=0;
+        sevenSegmentNum(3); //Display K-3
+        delay(1);
+        buzz=0;
+        }
+        }
+        if(data==0xB0) //Press Key 7
+        {
+        delay(15); 
+        data=P2; //Read in P2
+        data=data&0xF0;
+        if(data==0xB0)
+        {
+        while((P2&0xF0)==0xB0); //Wait for switch release
+        buzz=1;
+        sevenSegmentNum(7); //Display K-7
+        delay(1);
+        buzz=0;
+        }
+        }
+        if(data==0xD0) //Press K-A
+        {
+        delay(15); 
+        data=P2; //Read in P2
+        data=data&0xF0;
+        if(data==0xD0)
+        {
+        while((P2&0xF0)==0xD0); //Wait for switch release
+        buzz=1;
+        sevenSegmentChar('a'); //Display K-A
+        delay(1);
+        buzz=0;
+        }
+        }
+        if(data==0xE0) //Press K-e
+        {
+        delay(15); 
+        data=P2; //Read in P2
+        data=data&0xF0;
+        if(data==0xE0)
+        {
+        while((P2&0xF0)==0xE0); //Wait for switch release
+        buzz=1;
+        sevenSegmentChar('e'); //Display K-e
+        delay(1);
+        buzz=0;
+        }
+        }
+        /*----------------Scan 4th line------------------------------------*/
+        P2=0xF7; //Scan 4th line
+        data=P2; //Read in P2
+        data=data&0xF0; //Set b3-b0 = 0 in data
+        if(data==0x70) //Press Key 4
+        {
+        delay(15); 
+        data=P2; //Read in P2
+        data=data&0xF0;
+        if(data==0x70)
+        {
+        while((P2&0xF0)==0x70); //Wait for switch release
+        buzz=1;
+        SegLEDB1=0;
+        sevenSegmentNum(4); //Display K-4
+        delay(1);
+        buzz=0;
+        }
+        }
+        if(data==0xB0) //Press Key 8
+        {
+        delay(15); 
+        data=P2; //Read in P2
+        data=data&0xF0;
+        if(data==0xB0)
+        {
+        while((P2&0xF0)==0xB0); //Wait for switch release
+        buzz=1;
+        sevenSegmentNum(8); //Display K-8
+        delay(1);
+        buzz=0;
+        }
+        }
+        if(data==0xD0) //Press Key b
+        {
+        delay(15); 
+        data=P2; //Read in P2
+        data=data&0xF0;
+        if(data==0xD0)
+        {
+        while((P2&0xF0)==0xD0); //Wait for switch release
+        buzz=1;
+        sevenSegmentChar('b'); //Display K-b
+        delay(1);
+        buzz=0;
+        }
+        }
+                if(data==0xE0) //Press Key e
+                {
+                        delay(15); 
+                        data=P2; //Read in P2
+                        data=data&0xF0;
+                        if(data==0xE0)
+                        {
+                                while((P2&0xF0)==0xE0); //Wait for switch release
+                                buzz=1;
+                                sevenSegmentChar('f'); //Display K-f
+                                delay(1);
+                                buzz=0;
+                        }
+                }
+        }
+
+ 
+}
