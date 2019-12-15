@@ -1,0 +1,317 @@
+#Author: Sharon Cao
+#Description:
+#1. Complete the reiterate method in the following People class to repeat what he/she said
+#Notice that the other methods in the class are needed to change as well, not just 
+#the reiterate method.
+class People ():
+ """
+ >>> michael = People("Michael")
+ >>> michael.reiterate() # starts at whatever value you'd like
+ 'I am reading lecture handout!'
+ >>> michael.say("Python")
+ 'Python'
+ >>> michael.reiterate() 
+ ''Python'
+ >>> michael.greet()
+ 'Hi, this is Michael'
+ >>> michael.reiterate()
+ 'Hi, this is Michael'
+ >>> michael.ask('discuss about Python programming')
+ 'Would you please discuss about Python programming'
+ >>> michael.reiterate()
+'Would you please discuss about Python programming'
+ """
+
+ class People():
+  def __init__(self, name):         
+    self.name = name
+    self.sth = "Too much Python Homework" 
+    
+  def say(self, sth):
+    self.sth = sth   
+    return sth 
+    
+  def ask(self, sth):         
+    return self.say("Would you please " + sth) 
+    
+  def greet(self):         
+    return self.say("Hi, this is " + self.name) 
+    
+  def reiterate(self):
+    return self.say(self.sth)
+
+Michael = People("Michael")
+print(Michael.reiterate())
+print(Michael.say("Python"))
+print(Michael.reiterate())
+print(Michael.greet())
+print(Michael.reiterate())
+print(Michael.ask('discuss about Python programming'))
+print(Michael.reiterate())
+"""
+Too much Python Homework
+Python
+Python
+Hi, this is Michael
+Hi, this is Michael
+Would you please discuss about Python programming
+Would you please discuss about Python programming
+"""
+
+#Author: Sharon Cao
+#Description: 
+#2. Assuming that a class called Twice will be designed to represent people who always say 
+#something twice:
+#>>> michael = Twice("Michael")
+#>>> michael.say("hi")
+#"hi hi"
+#>>> michael.say("Python programming is interesting")
+#"Python programming is interesting Python programming is interesting"
+#Consider the following three classes for Twice that inherit from the People class:
+"""
+class Twice(People):
+ def __init__(self, name):
+ People.__init__(self, name)
+ def say(self, sth):
+ return People.say(self, sth) + " " + self.reiterate()
+class Twice(People):
+ def __init__(self, name):
+ People.__init__(self, name)
+ def say(self, sth):
+ return sth + " " + sth
+class Twice(People):
+ def __init__(self, name):
+ People.__init__(self, name)
+ def say(self, sth):
+ return People.say(self, sth + " " + sth)
+Determine which of above three classes will get what you want. Also determine for 
+which of the methods the three versions would respond differently. (Don't forget about 
+the reiterate method!)
+"""
+class People():
+  def __init__(self, name):         
+    self.name = name
+    self.sth = "Too much Python Homework" 
+  def say(self, sth):
+    self.sth = sth   
+    return sth 
+    
+  def ask(self, sth):         
+    return self.say("Would you please " + sth) 
+    
+  def greet(self):         
+    return self.say("Hi, this is " + self.name) 
+    
+  def reiterate(self):
+    return self.say(self.sth)
+
+class Twice(People):
+  def __init__ (self, name):
+    People.__init__(self, name)
+    
+  def say(self, sth):
+    return People.say(self, sth + " " + sth)
+
+michael = Twice("Michael")
+print(michael.say("hi"))
+
+Michael = People("Michael")
+print(Michael.reiterate())
+print(Michael.say("Python"))
+print(Michael.reiterate())
+print(Michael.greet())
+print(Michael.reiterate())
+print(Michael.ask('discuss about Python programming'))
+print(Michael.reiterate())
+
+"""
+hi hi
+Too much Python Homework
+Python
+Python
+Hi, this is Michael
+Hi, this is Michael
+Would you please discuss about Python programming
+Would you please discuss about Python programming
+"""
+
+
+
+#Author: Sharon Cao
+#Description: 
+#3. Write a class for vending machine operations in python as follows
+ """A vending machine operations
+ >>> a = VndMchn('soda', 3.5) # setup price $3.5 for soda
+ >>> a.vending()
+ 'Out of stock currently'
+ >>> a.adding(2) # add 2 soda to machine
+ 'Current soda stock: 2'
+ >>> a.vending()
+ 'Need to deposit $3.5 more.'
+ >>> a.deposit(1.5) # deposit $1.5
+ 'Current balance: $1.5'
+ >>> a.vending()
+ 'Need to deposit $2 more.'
+ >>> a.deposit(5)
+ 'Current balance: $6.5'
+ >>> a.vending()
+ 'Take your soda and $3 change' # return all your change 
+ >>> a.deposit(3.5)
+ 'Current balance: $3.5'
+ >>> a.vending()
+ 'Take your soda'
+ >>> a.deposit($10)
+ 'Out of stock. Return to your $10'
+ """
+class VndMchn():
+  def __init__(self, item, cost):
+    self.item = item
+    self.cost = cost
+    self.stock = 0
+    self.cash = 0
+
+  def vending(self):
+  
+    if self.stock > 0:
+      if self.cash < self.cost:
+        return str("Please deposit at least $" + str(self.cost - self.cash))
+      elif self.cash == self.cost:
+        self.cash = 0
+        self.stock -= 1
+        return "Take your soda"
+      else:
+        tmp = self.cash - self.cost
+        self.cash = 0
+        self.stock -= 1
+        return "Take your soda and $" + str(tmp) + " change."
+        
+    else:
+      return "Sold Out"
+      
+      
+  def adding(self, x):
+    self.stock += x
+    return "Current " + self.item + " stock: " + str(self.stock)
+    
+  def deposit(self, x):
+    if self.stock > 0:
+      self.cash += x
+      return "Current balance : $" + str(self.cash)
+    else:
+      return "Out of stock. Returning $" + str(x)
+
+a = VndMchn('soda', 2)
+print(a.vending())
+print(a.adding(7))
+print(a.vending())
+print(a.deposit(1))
+print(a.vending())
+print(a.deposit(5))
+print(a.vending())
+print(a.deposit(7))
+print(a.vending())
+print(a.deposit(10))
+
+"""
+Sold Out
+Current soda stock: 7
+Please deposit at least $2
+Current balance : $1
+Please deposit at least $1
+Current balance : $6
+Take your soda and $4 change.
+Current balance : $7
+Take your soda and $5 change.
+Current balance : $10
+"""
+
+#Author: Sharon Cao
+#Description:  
+#4. Generate a Keypad class with an arbitrary number of Buttons (object type) as input 
+#parameters and save these Buttons in a dictionary. The keys in dict will be integer that 
+#denoted the position on the keypad, and the values will be the respective Button. 
+#Complete the methods in the keypad class according to the following description
+
+class Keypad:
+ """
+ >>> a1 = Bttn(0, "H")
+ >>> a2 = Bttn (1, "I")
+ >>> ky = Keypad (a1, a2)
+ >>> ky.bttns[0].key
+ 'H'
+ >>> ky.prs(1) # press position 1 on the keypad
+ 'I'
+ >>> ky.type([0, 1]) # typing string by pressing two keys on the keyboard
+ 'HI'
+ >>> ky.type([1, 0])
+ 'IH'
+ >>> a1.pressed # "H" key is pressed twice
+ 2
+ >>> a2.pressed
+ 3
+ """
+ def __init__(self, *args):
+… … 
+ def prs(self, info):
+ """Reads in a position of the button pressed, and 
+ returns that button's char"""
+ … …
+ def type(self, type_ip):
+ """Reads in a list of positions of buttons pressed, and 
+ returns a string that button will generate"""
+ … …
+class Bttn: # Button class
+ def __init__(self, pstn, ky):
+ self.pos = pstn
+ self.key = ky
+ self.pressed = 0
+ 
+ class Keypad():
+  def __init__(self, *args):
+    self.bttn = {}
+    for ar in args:
+      self.bttn[ar.pos] = ar
+
+  def prs(self, info):
+    try:
+      self.bttn[info].bttned += 1
+      return self.bttn[info].key
+    except:
+      print('Dude!, bttn doesnt exist')
+      pass
+      
+  def type(self, type_ip):
+    try:
+      res = ""
+      for i in type_ip:
+        self.bttn[i].bttned += 1
+        res += self.bttn[i].key
+      return res
+    except:
+      print('bttn doesnt exist')
+      pass
+
+class bttn():
+  def __init__(self, x, sw):
+    self.pos = x
+    self.key = sw
+    self.bttned = 0
+
+m = bttn(0, 'H')
+n = bttn(1, 'I')
+ky = Keypad(m, n)
+print(ky.bttn[0].key)
+print(ky.prs(1))
+print(ky.type([0, 1]))
+print(ky.type([1, 0]))
+print(m.bttned)
+print(n.bttned)
+
+"""
+H
+I
+HI
+IH
+2
+3
+"""

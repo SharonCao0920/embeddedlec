@@ -1,0 +1,457 @@
+#Author: Sharon Cao
+#Description:
+#1. Write a function to check if the element exists or not in the linked list.
+ """Return if elm is in the linked list s
+ >>> cntn_link (link(1, link(2, link(3, empty))), 1) 
+ True 
+ >>> cntn_link (link(1, link(2, link(3, empty))), 4) 
+ False 
+ """
+#Notice that linked list construction related def functions are on the WK#9 handouts
+
+def link(first, rest):
+  return [first, rest]
+
+newlist = []
+
+def cntn_link(lst,n):
+  #flat linked list
+  def flat(lst):
+    if type(lst) != list:    
+      return [lst]
+    else:
+      return sum([flat(x) for x in lst],[])
+  lst=flat(lst)
+  #print(lst)
+  #check for number
+  for i in lst:
+    if(i==n):
+      return True
+  return False    
+
+print(cntn_link (link(1, link(2, link(3, newlist))), 1))
+print(cntn_link(link(1, link(2, link(3, newlist ))),4))
+
+"""
+True
+False
+"""
+
+
+#Author: Sharon Cao
+#Description:
+#2. Create a function to print linked list as follows.
+def prnt_lnk(s):
+""" 
+>>> prnt_lnk ( link(1, link(2, link(3, link(4, empty)))) ) 
+<1 2 3 4>
+"""
+new = []
+def is_link(ls):
+  return ls == new or (len(ls) == 2 and is_link(ls[1]))
+
+def first(ls):
+  assert is_link(ls)
+  assert ls != new
+  return ls[0]
+
+def link(first, rest):
+  assert is_link(rest)
+  return [first, rest]
+
+def left(ls):
+  assert is_link(ls)
+  assert ls != new
+  return ls[1]
+
+
+def prnt_lnk(s):
+  a = '<'
+  while s != new:
+    a += str(first(s)) + ' '
+    s = left(s)
+  a += '>'
+  return a
+
+print(prnt_lnk(link(1, link(2, link(3, link(4, new))))))
+"""
+<1 2 3 4 >
+"""
+
+
+
+
+#Author: Sharon Cao
+#Description:
+#3. Implement a function to create a new linked list in the reverse order.
+def rvrs_lnk(s):
+ """Return linked list reversed
+ >>> rvrs_lnk (link(1, link(2, link(3, link(4, empty)))))
+ [4, [3, [2, [1, [ ] ]]]]
+"""
+new = []
+def is_link(ls):
+  return ls == new or (len(ls) == 2 and is_link(ls[1]))
+
+def extend_link(ls, lt):
+  assert is_link(ls) and is_link(lt)
+  if ls == new:
+    return lt
+  else:
+    return  link(first(ls),  extend_link(left(ls), lt))
+
+def recursive(ls):
+  if  ls == new:
+    return 0
+  return  1+recursive(left(ls))
+
+def first(ls):
+  assert is_link(ls)
+  assert ls != new
+  return ls[0]
+
+def link(first, rest):
+  assert is_link(rest)
+  return [first, rest]
+
+def left(ls):
+  assert is_link(ls)
+  assert ls != new
+  return ls[1]
+
+
+def rvrs_lnk(ls):
+  temp = new
+  while recursive(ls) > 0:
+    temp = extend_link(link(first(ls), new), temp)
+    ls = left(ls)
+  return temp
+
+s = [1, [2, [3, [4, [ ] ]]]]
+print(rvrs_lnk(s))
+
+"""
+[4, [3, [2, [1, []]]]]
+"""
+
+
+#Author: Sharon Cao
+#Description:
+#4. Write a function srt (lnk) function, which returns True if the linked list lnk is sorted 
+#ascendingly from the left to right. If two adjacent elements are equal, the linked list can 
+#still be considered sorted.
+def srt (lnk):
+ """ if the linked list lnk is sorted, then return True
+ >>> lnk1 = link(1, link(2, link(3, link(4,empty))))
+ >>> srt (lnk1)
+ True
+ >>> lnk2 = link(1, link(3, link(2, link(4, link(5, empty)))))
+ >>> srt (lnk2)
+ False
+ >>> lnk3 = link(3, link(3, link(3, empty)))
+ >>> srt (lnk3)
+ True
+ """
+ new = []
+def is_link(ls):
+  return ls == new or (len(ls) == 2 and is_link(ls[1]))
+
+def extend_link(ls, lt):
+  assert is_link(ls) and is_link(lt)
+  if ls == new:
+    return lt
+  else:
+    return  link(first(ls),  extend_link(restlink(ls), lt))
+
+def recursive(ls):
+  if  ls == new:
+    return 0
+  return  1+recursive(restlink(ls))
+
+def first(ls):
+  assert is_link(ls)
+  assert ls != new
+  return ls[0]
+
+def link(first, rest):
+  assert is_link(rest)
+  return [first, rest]
+
+def restlink(ls):
+  assert is_link(ls)
+  assert ls != new
+  return ls[1]
+
+def srt(lnk):
+  if recursive(lnk) <= 1:
+    return True
+  elif first(lnk) > first(restlink(lnk)):
+    return False
+  else:
+    return True and srt(restlink(lnk))
+
+lnk1 = link(1, link(2, link(3, link(4, new))))
+print(srt(lnk1))
+lnk2 = link(1, link(3, link(2, link(4, link(5, new)))))
+print(srt(lnk2))
+lnk3 = link(3, link(3, link(3, new)))
+print(srt(lnk3))
+
+"""
+True
+False
+True
+"""
+ 
+ 
+ 
+#Author: Sharon Cao
+#Description:
+#5. Write a function with arguments a linked list lnk and a function g, which is applied to 
+#each number in lnk and returns the sum. If the linked list is empty, the sum is 0.
+def sum_lnk(lnk, g):
+ """Applies a function g to each element in lnk and returns the sum
+ of them
+ >>> sqr = lambda x: x * x
+ >>> dbl = lambda y: 2 * y
+ >>> lnk1 = link(1, link(2, link(3, link(4, empty))))
+ >>> sum_lnk (lnk1, sqr)
+ 30 # sqr(1) + sqr(2) + sqr(3) + sqr(4) 
+ >>> lnk2 = link(3, link(5, link(4, link(6, empty))))
+ >>> sum_lnk (lnk2, dbl)
+ 36 # dbl(3)+ dbl(5)+ dbl(4)+ dbl(6)
+ """
+new = []
+def is_link(ls):
+  return ls == new or (len(ls) == 2 and is_link(ls[1]))
+
+def extend_link(ls, lt):
+  assert is_link(ls) and is_link(lt)
+  if ls == new:
+    return lt
+  else:
+    return  link(first(ls),  extend_link(restlink(ls), lt))
+
+def recursive(ls):
+  if  ls == new:
+    return 0
+  return  1+recursive(restlink(ls))
+
+def first(ls):
+  assert is_link(ls)
+  assert ls != new
+  return ls[0]
+
+def link(first, rest):
+  assert is_link(rest)
+  return [first, rest]
+
+def restlink(ls):
+  assert is_link(ls)
+  assert ls != new
+  return ls[1]
+
+def sum_lnk(lnk, g):
+  result = 0
+  while recursive(lnk) > 0:
+    result += g(first(lnk))
+    lnk = restlink(lnk)
+  return result
+
+sqr = lambda x: x * x
+twotimes = lambda y: 2 * y
+lnk1 = link(1, link(2, link(3, link(4, new))))
+print(sum_lnk (lnk1, sqr))
+lnk2 = link(3, link(5, link(4, link(6, new))))
+print(sum_lnk (lnk2, twotimes))
+"""
+30
+36
+""" 
+ 
+#Author: Sharon Cao
+#Description:
+#6. Define a function with input parameters a linked list, lnk, two elements, u and v. The 
+#function returns linked list but with all elements of u substituted with v.
+def change(lnk, u, v):
+"""Returns a linked list matching lnk but with all elements of u replaced by v. If u
+does not appear in lnk, then return lnk
+ >>> l = link(1, link(2, link(3, empty)))
+>>> n=change(l, 3, 1)
+>>> n
+ [1, [2, [1, [ ] ]]]
+>>> m=change(n, 1, 2)
+>>> m
+ [2, [2, [2, [ ]]]]
+ >>> change(m, 5, 1)
+ [2, [2, [2, [ ]]]]
+ """
+new = []
+def is_link(ls):
+  return ls == new or (len(ls) == 2 and is_link(ls[1]))
+
+def extend_link(ls, lt):
+  assert is_link(ls) and is_link(lt)
+  if ls == new:
+    return lt
+  else:
+    return  link(first(ls),  extend_link(restlink(ls), lt))
+
+def first(ls):
+  assert is_link(ls)
+  assert ls != new
+  return ls[0]
+
+def link(first, rest):
+  assert is_link(rest)
+  return [first, rest]
+
+def restlink(ls):
+  assert is_link(ls)
+  assert ls != new
+  return ls[1]
+
+def change(l,x,y):
+    t=[]
+    while l!=[]:
+        if first(l)==x:
+            l[0]=y
+        t = extend_link(t,[l[0], []])
+        l=restlink(l)
+    return t 
+            
+l = link(1, link(2, link(3, new)))
+n=change(l, 3, 1)
+print(n)
+m=change(n, 1, 2)
+print(m)
+print(change(m, 5, 1))
+
+"""
+[1, [2, [1, []]]]
+[2, [2, [2, []]]]
+[2, [2, [2, []]]]
+"""
+ 
+ 
+#Author: Sharon Cao
+#Description:
+#7. Generate a function to append element to the end of linked list.
+def apnd(lnk, m):
+ """Adds the element m to the end of lnk
+ >>> l = link(1, link(2, link(3, empty)))
+ >>> n = apnd (l, 4) # n = [1, [2, [3, [4, [] ]]]]
+ >>> first(rest(rest(rest(n))))
+ 4
+ """
+#Notice that linked list first and rest function are on the WK#9 handouts
+new = []
+def is_link(ls):
+  return ls == new or (len(ls) == 2 and is_link(ls[1]))
+
+def extend_link(ls, lt):
+  assert is_link(ls) and is_link(lt)
+  if ls == new:
+    return lt
+  else:
+    return  link(first(ls),  extend_link(restlink(ls), lt))
+
+def first(ls):
+  assert is_link(ls)
+  assert ls != new
+  return ls[0]
+
+def link(first, rest):
+  assert is_link(rest)
+  return [first, rest]
+
+def restlink(ls):
+  assert is_link(ls)
+  assert ls != new
+  return ls[1]
+
+def apnd(lnk, x):
+  return extend_link(lnk, [x, []])
+
+l = link(1, link(2, (link(3, new))))
+n = apnd(l, 4)
+print(first(restlink(restlink(restlink(n)))))
+
+"""
+4
+"""
+
+
+#Author: Sharon Cao
+#Description:
+#8. Implement the insert function that creates a copy of the original list with an item 
+#inserted at the specific index. If the index is greater than the current length, you should 
+#insert the item at the end of the list.
+def insrt(l, elm, ind):
+ """
+ >>> l = link(11, link(12, link(13, empty)))
+>>> n = insrt (l, 2019, 1)
+>>> n
+ [11, [2019, [12, [13, [ ] ]]]]
+>>> m = insrt(n, 2020, 20)
+>>> m
+ [11 [2019 [12 [13 [2020, [ ] ]]]]]
+"""
+new = []
+def is_link(ls):
+  return ls == new or (len(ls) == 2 and is_link(ls[1]))
+
+def extend_link(ls, lt):
+  assert is_link(ls) and is_link(lt)
+  if ls == new:
+    return lt
+  else:
+    return  link(first(ls),  extend_link(restlink(ls), lt))
+
+def first(ls):
+  assert is_link(ls)
+  assert ls != new
+  return ls[0]
+
+def link(first, rest):
+  assert is_link(rest)
+  return [first, rest]
+
+def restlink(ls):
+  assert is_link(ls)
+  assert ls != new
+  return ls[1]
+
+def recursive(ls):
+  if  ls == new:
+    return 0
+  return  1+recursive(restlink(ls))
+
+def insrt(l, elm, ind):
+  result = new
+  i = 0 
+  tmp = recursive(l)
+  while recursive(l) > 0:
+    if i == ind:
+      result = extend_link(result, link(elm, new))
+      i += 1
+    else:
+      result = extend_link(result, link(first(l), new))
+      l = restlink(l)
+    i += 1
+  if ind > i:
+    result = extend_link(result, link(elm, new))
+  return result
+
+l = link(11, link(12, link(13, new)))
+n = insrt(l, 2019, 1)
+print(n)
+m = insrt(n, 2020, 20)
+print(m)
+"""
+[11, [2019, [12, [13, []]]]]
+[11, [2019, [12, [13, [2020, []]]]]]
+"""
+
+
+
