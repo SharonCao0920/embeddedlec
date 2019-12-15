@@ -1,0 +1,245 @@
+#Author: Sharon Cao
+#Description:
+#1.Given a dictionary d, replace all occurrences of x as a value (not a key) with y.
+
+def replace_all(d, x, y):
+
+"""
+
+d = {'foo': 2, 'bar': 3, 'garply': 3, 'xyzzy': 99}
+
+replace_all(d, 3, 'poof')
+
+d == {'foo': 2, 'bar': 'poof', 'garply': 'poof', 'xyzzy': 99}
+
+True
+
+"""
+def rpl_all(d, x, y):
+  for i in d:
+    if d[i] == x:
+        d[i]=y
+
+d = {'f': 2, 'b': 3, 'g': 3, 'xy': 99}
+rpl_all (d, 3, 'poof')
+print(d == {'f': 2, 'b': 'poof', 'g': 'poof', 'xy': 99})
+
+"""
+True
+"""
+    
+#Author: Sharon Cao
+#Description:
+#2.Create a function to calculate frequencies in the input list.
+
+def frequencies(L):
+
+"""
+A dictionary giving, for each w in L, the number of times w appears in L.
+
+>>> frequencies([’the’, ’name’, ’of’, ’the’, ’name’, ’of’, ’the’, ... ’song’]) 
+{’of’: 2, ’the’: 3, ’name’: 2, ’song’: 1}
+"""
+def frequencies(L):
+    a={}
+    for x in range(0,len(L)):
+        counter=1
+        if L[x] in a:
+            continue
+        for y in range (x+1,len(L)):
+            if L[x]==L[y]:
+                counter+=1
+        a[L[x]]=counter
+    return a
+  
+print(frequencies (['the', 'name', 'of','the','of','name','of','song']))
+"""
+{'the': 2, 'name': 2, 'of': 3, 'song': 1}
+"""
+
+#Author: Sharon Cao
+#Description:    
+#3.   Write a function to find most frequency occurrence item in an input list.
+
+"""Return the element in lst that occurs
+the most number of times.
+lst = [1, 4, 2, 4]
+most_frequent(lst)
+4
+"""
+def most_frequent(lst): 
+    counter = 0
+    num = lst[0]   
+    for i in lst: 
+        curr_frequency = lst.count(i) 
+        if(curr_frequency> counter): 
+            counter = curr_frequency 
+            num = i 
+    return num 
+  
+List = [2, 1, 2, 2, 1, 3] 
+print(most_frequent(List)) 
+lst = [1, 4, 2, 4]
+print(most_frequent(lst))
+
+"""
+2
+4
+"""
+  
+    
+#Author: Sharon Cao
+#Description:
+#4. Write a function to check if there is a duplicated element in a list input. 
+
+"""True if L contains a duplicated item."""
+def is_duplicate(L): 
+    if len(L) != len(set(L)):
+      return True        
+    else:
+      return False
+
+L=[3, 5, 6, 7, 7]
+print(is_duplicate(L))
+L=[3, 5, 6, 7, 9]
+print(is_duplicate(L))
+"""
+True
+False
+"""
+
+
+#Author: Sharon Cao
+#Description:
+#5.Generate a function to find common keys in two input dictionaries. 
+"""Return dictionary containing the keys common to D0 and D1."""
+
+def common_keys(D0,D1):
+  new={}
+  for key in D0.keys():
+    if key in D1.keys():
+      new[key]=(D0[key],D1[key])
+  return(new)
+
+a={1:1,2:1,3:2,5:1,6:1}
+b={1:1,2:1,3:2}
+print (common_keys(a,b))
+
+"""
+{1: (1, 1), 2: (1, 1), 3: (2, 2)}
+"""
+
+#Author: Sharon Cao
+#Description:
+#6.Write a function to implement the following operation.
+"""Return a dictionary: keys are words; values are lists of successors.
+text = ['We', 'came', 'to', 'investigate', ',', 'catch', 'bad', 'guys', 'and', 'to', 'eat', 'pie', '.']
+table = build_successors_table(text)
+sorted(table)
+[',', '.', 'We', 'and', 'bad', 'came', 'catch', 'eat', 'guys', 'investigate', 'pie', 'to']
+>>> table['to'] 
+['investigate', 'eat']
+>>>table['pie']
+['.']
+>>>table['.']
+['We']
+"""
+
+def build_successors_table(tokens):
+  table = {}
+  pre = '.'
+  for w in tokens:
+    if pre not in table:
+      table[pre] = []
+    table[pre].append(w)
+    pre = w
+  return table
+
+text = ['We', 'came', 'to', 'investigate', ',', 'catch', 'bad', 'guys', 'and', 'to', 'eat', 'pie', '.']
+table = build_successors_table(text)
+sorted(table)
+
+print(table['to'] )
+print(table['pie'])
+print(table['.'])
+
+"""
+['investigate', 'eat']
+['.']
+['We']
+"""
+
+
+#Author: Sharon Cao
+#Description:
+#7. Write a function “rm_first” that takes in a list, and removes the first appearance of the 
+number element. Use recursion!
+def rm_first (lst, elm):
+ """ This function removes the first appearance of element in list
+ >>> rm_first ([3, 4] , 3)
+ [4]
+ >>> rm_first ([3, 4, 3] , 3)
+ [4, 3]
+ >>> rm_first ([2, 4] , 3)
+ [2, 4]
+ >>> rm_first ([] , 0)
+ []
+ """
+ def rm_first (lst, elm):
+    counter=0
+    for x in lst:
+      if x==elm:
+        lst.pop(counter)
+        return lst
+      else:
+        counter += 1
+    return lst
+
+print(rm_first ([3, 4] , 3))
+print(rm_first ([3, 4, 3] , 3))
+print(rm_first ([2, 4] , 3))
+print(rm_first ([] , 0))
+
+"""
+[4]
+[4, 3]
+[2, 4]
+[]
+"""
+
+
+#Author: Sharon Cao
+#Description:
+#8. Write a function to sort list and return the sorted list using RECURSION!
+def sort(lst):
+ """This function returns a sorted list
+ >>> sort([6, 2, 5])
+ [2, 5, 6]
+ >>> sort([2, 3])
+ [2, 3]
+ >>> sort([3])
+ [3]
+ >>> sort([])
+ []
+"""
+Hint: Use the “rm_first” function defined in the above, and the built-in “min” function
+def sort(l):
+    if len(l) <= 1:
+        return l
+    else:
+        return sort([e for e in l[1:] if e <= l[0]]) + [l[0]] +\
+            sort([e for e in l[1:] if e > l[0]])
+print(sort ([6,2,1,5]))
+print(sort([6, 2, 5]))
+print(sort([2, 3]))
+print(sort([3]))
+print(sort([]))
+
+"""
+[1, 2, 5, 6]
+[2, 5, 6]
+[2, 3]
+[3]
+[]
+"""
+
