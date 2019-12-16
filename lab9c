@@ -1,0 +1,328 @@
+1. What is running result for each program? And explain why?
+
+#include<stdio.h>
+int main(void)
+{
+  struct xx
+  {
+    int x;
+    struct yy 
+	{
+       char s;
+       struct xx *p;
+    };
+    struct yy *q;
+  };
+}
+//structer with pointer structre
+// xx have 2 elements integer x and structure yy
+//within yy element of char, the other element point to struct xx (shre the value in xx)
+-----------------------------------------------------------------------------------------
+#include<stdio.h>
+int main(void){
+struct xx{
+int x=3;
+char name[]=“hello”;
+}
+struct xx *s=malloc(sizeof(struct xx));
+printf(“%d”,s->x);
+printf(“%s”,s->name);
+}
+//pointer s save to memory with the size of struct
+//3
+//hello
+-----------------------------------------------------------------------------------------
+#include<stdio.h>
+struct point{
+int x;
+int y;
+};
+struct point origin,*pp;
+int main(void){
+pp=&origin;
+printf(“origin is(%d%d)\n”,(*pp).x,(*pp).y);
+printf(“origin is (%d%d)\n”,pp->x,pp->y);
+}
+//result will be the same
+//(*pp).x,(*pp).y  ==> origin.x, origin.y
+//pp->->x,pp->y  ==>origin.x, origin.y
+
+-----------------------------------------------------------------------------------------
+#include<stdio.h>
+int main(void){
+struct student{
+char name[30];
+struct date dob;
+}stud;
+struct date{
+int day,month,year;
+};
+scanf(“%s%d%d%d”, stud.rollno, &student.dob.day,
+&student.dob.month,&student.dob.year);
+}
+//what is stud.rollno?
+//enter with day month year
+//to save dates for students
+
+
+
+//2. Check if the following program snippet is legal or illegal? And explain why?
+
+struct a{
+int x;
+struct a b;
+}
+//illegal cn nor call self and create a new variable
+//";" expected
+
+-----------------------------------------------------------------------------------------
+struct a{
+int x;
+struct a *b;
+}
+//legal
+-----------------------------------------------------------------------------------------
+typedef struct a{
+int x;
+aType *b;
+}aType
+//ilegal
+-----------------------------------------------------------------------------------------
+typedef struct a aType;
+struct a{
+int x;
+aType *b;
+};
+//legal
+-----------------------------------------------------------------------------------------
+int main(void){
+typedef struct a aType;
+aType someVariable;
+struct a{
+int x;
+aType *b;
+};
+}
+//legal
+-----------------------------------------------------------------------------------------
+#include<stdio.h>
+int main(void){
+struct
+{
+char a;
+short b;
+int c;
+}temp;
+}
+What is the size of temp?
+a)7 b)8 c)12 d)120
+//8
+
+
+/*
+3. A structure pointer is pointing to type time with 3 fields min, sec and hours
+having pointers to integers. Write the way to initialize the 2nd element to 10.
+*/
+
+struct time{
+	int min;
+	int sec;
+	int sec;
+	int  hour;
+};
+int main()
+{
+	struct time *p;
+    p=&time;
+    p->sec = 10;
+}
+
+
+/*
+4. Write a program to enter to Cartesian coordinate points within a structure
+and display the distance between them.
+*/
+
+struct distance{
+	int x;
+	int y;
+}
+
+int main()
+{
+	struct distance ab;
+	printf("Enter point x and point y: ");
+	scanf("%d%d", &ab.x, &ab.y);
+	int a = ab.x;
+	int b = ab.y;
+	int c=a-b;
+	printf("Distance is: %d". abs(c));
+}
+
+/*
+5. Write a function which accepts structure as argument and returns structure to
+the calling program. 
+*/
+#include<stdio.h>
+       struct Employee
+       {
+              int Id;
+              char Name[25];
+              int Age;
+       };
+       void Display(struct Employee);
+       void main()
+       {
+              struct Employee Emp = {1,"Sam",26};
+              Display(Emp);
+       }
+
+       void Display(struct Employee E)
+       {
+                    printf("\n\nEmployee Id : %d",E.Id);
+                    printf("\nEmployee Name : %s",E.Name);
+                    printf("\nEmployee Age : %d",E.Age);
+       }
+
+/*
+6. Define a structure “complex” (typedef) with two numbers as complex
+number real part and imagery part, and write a program to perform addition,
+subtraction of these two complex numbers and display the result.
+*/
+
+#include <stdio.h>
+typedef struct complex 
+{
+    float real;
+    float imag;
+} complex;
+
+complex add(complex n1, complex n2);
+
+int main() 
+{
+    complex n1, n2, result;
+    printf("Enter the real and imaginary parts of the 1st complex number: ");
+    scanf("%f %f", &n1.real, &n1.imag);
+    printf("Enter the real and imaginary parts of the 2nd complex number: ");
+    scanf("%f %f", &n2.real, &n2.imag);
+    result = add(n1, n2);
+    printf("Sum = %.2f + %.2fi", result.real, result.imag);
+	result = sub(n1, n2);
+    printf("Sub = %.2f - %.2fi", result.real, result.imag);
+    return 0;
+}
+complex add(complex n1, complex n2) {
+    complex temp;
+    temp.real = n1.real + n2.real;
+    temp.imag = n1.imag + n2.imag;
+    return (temp);
+}
+
+complex sub(complex n1, complex n2) {
+    complex temp;
+    temp.real = n1.real - n2.real;
+    temp.imag = n1.imag - n2.imag;
+    return (temp);
+}
+
+
+/*
+7. Write a program to show programming examples with union and
+enumerations.
+*/
+//unios
+union car
+{
+  char name[50];
+  int price;
+};
+int main()
+{
+  union car car1, car2, *car3;
+  return 0;
+}
+
+//Enumerations
+#include <stdio.h>
+enum week {Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday};
+int main()
+{
+    // creating today variable of enum week type
+    enum week today;
+    today = Wednesday;
+    printf("Day %d",today+1);
+    return 0;
+}
+
+
+
+
+/*
+8. (Bonus)Write a small program which makes a linked list, three structures
+long and assigns all their data to be zero. Can you automate this program
+with a loop? Can you make it work for any number of structures?
+*/
+// C program to detect loop in a linked list 
+#include <stdio.h> 
+#include <stdlib.h> 
+  
+/* Link list node */
+struct Node { 
+    int data; 
+    struct Node* next; 
+}; 
+  
+void push(struct Node** head_ref, int new_data) 
+{ 
+    /* allocate node */
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node)); 
+  
+    /* put in the data  */
+    new_node->data = new_data; 
+  
+    /* link the old list off the new node */
+    new_node->next = (*head_ref); 
+  
+    /* move the head to point to the new node */
+    (*head_ref) = new_node; 
+} 
+  
+int detectloop(struct Node* list) 
+{ 
+    struct Node *slow_p = list, *fast_p = list; 
+  
+    while (slow_p && fast_p && fast_p->next) { 
+        slow_p = slow_p->next; 
+        fast_p = fast_p->next->next; 
+        if (slow_p == fast_p) { 
+            printf("Found Loop"); 
+            return 1; 
+        } 
+    } 
+    return 0; 
+} 
+  
+/* Driver program to test above function*/
+int main() 
+{ 
+    /* Start with the empty list */
+    struct Node* head = NULL; 
+  
+    push(&head, 20); 
+    push(&head, 4); 
+    push(&head, 15); 
+    push(&head, 10); 
+  
+    /* Create a loop for testing */
+    head->next->next->next->next = head; 
+    detectloop(head); 
+  
+    return 0; 
+} 
+
+
+
+
+
+
