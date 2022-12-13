@@ -2,7 +2,7 @@
 
 ```
 
-#**Section 1: Study the basic concepts about Kafka**
+# **Section 1: Study the basic concepts about Kafka**
 
 Three primary concerns in Real-time data ingesting are:
 
