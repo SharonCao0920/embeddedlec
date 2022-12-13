@@ -42,7 +42,7 @@ $ bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
 $ bin/kafka-server-start.sh config/server.properties
 ```
-###**Step 3: Create a Topic to Store Your Events**
+### **Step 3: Create a Topic to Store Your Events**
 
 Before you can write your first events, you must create a topic. Open another
 terminal session and run:
@@ -56,7 +56,7 @@ To list all current topics:
 $ bin/kafka-topics.sh --list --bootstrap-server localhost:9092
 ```
 
-###**Step 4: Write Some Events into the Topic**
+### **Step 4: Write Some Events into the Topic**
 
 Open another terminal session and run the console producer to write the events
 to topic:
@@ -77,7 +77,7 @@ $ bin/kafka-console-consumer.sh --topic quickstart-events --from-beginning
 You can stop the consumer client with Ctrl-C at any time.
 
 
-#**Section 2: Study the basic concepts about Spark Streaming**
+# **Section 2: Study the basic concepts about Spark Streaming**
 [Spark Streaming Guide](https://spark.apache.org/docs/latest/streaming-
 programming-guide.html)
 
@@ -93,7 +93,7 @@ WordCount-Streaming Example
 
   <img src="https://spark.apache.org/docs/latest/img/streaming-dstream-ops.png">
 
-####*Environment setup please refer to Section 3 - Step 1*
+#### *Environment setup please refer to Section 3 - Step 1*
 
 * First, run Netcat (a small utility found in most Unix-like systems) as a data
 server
@@ -107,26 +107,26 @@ $ ./bin/spark-submit examples/src/main/python/streaming/network_wordcount.py
 localhost 9999
 ```
 
-#**Section 3: Connecting the Dots (Python, Spark, and Kafka)**
+# **Section 3: Connecting the Dots (Python, Spark, and Kafka)**
 
 ### **Step 1: Installing Spark**
 
 
 [Set Up Spark and Kafka on Windows 11]()
 
-#####***Download spark package***
+##### ***Download spark package***
 ```
 $ wget https://www.apache.org/dyn/closer.lua/spark/spark-3.3.1/spark-3.3.1-bin-
 hadoop3.tgz
 ```
 
-####***Unpack***
+#### ***Unpack***
 ```
 $ tar -xvf spark-3.3.1-bin-hadoop3.tgz
 ```
 
 
-####***Create soft links (optional)***
+#### ***Create soft links (optional)***
 
 This step is optional, but preferred; it facilitates upgrading spark versions in
 the future.
@@ -134,13 +134,13 @@ the future.
 $ ln -s /home/xxx/spark-2.3.2-bin-hadoop2.7/ /home/xxx/spark
 ```
 
-####***Add SPARK_HOME entry to bashrc***
+#### ***Add SPARK_HOME entry to bashrc***
 ```
 $ SPARK_HOME="/home/xxx/spark"
 $ export PATH=$SPARK_HOME/bin:$PATH
 $ export PATH=$SPARK_HOME/sbin:$PATH
 ```
-####***Verify the installation***
+#### ***Verify the installation***
 ```
 $ pyspark
 ```
@@ -148,7 +148,7 @@ The following output would be visible on the console if everything were
 accurate:
 
 
-####***Start the master in this machine***
+#### ***Start the master in this machine***
 ```
 $ start-master.sh
 ```
@@ -156,10 +156,14 @@ Spark Master Web GUI (the flowing screen) is accessible from the following URL:
 http://abc.def.com:8080/
 
 
-####***Starting Worker***
+#### ***Starting Worker***
 ```
 $ start-slave.sh spark://abc.def.ghi.jkl:7077
 ```
+
+
+
+
 
 
 
